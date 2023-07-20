@@ -7,7 +7,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('/assets/img/apple-icon.png') }}">
     <link rel="icon" type="image/png" href="{{ asset('/assets/img/favicon.png') }}">
     <title>
-        Bansos.Id
+        {{ config('app.name', 'Laravel') }}
     </title>
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -22,6 +22,7 @@
     <!-- Nepcha Analytics (nepcha.com) -->
     <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
     <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
+    @yield('header')
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
@@ -33,14 +34,14 @@
             <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/soft-ui-dashboard/pages/dashboard.html "
                 target="_blank">
                 <img src="{{ asset('/assets/img/logo-ct-dark.png') }}" class="navbar-brand-img h-100" alt="main_logo">
-                <span class="ms-1 font-weight-bold">Bansos.Id</span>
+                <span class="ms-1 font-weight-bold">{{ config('app.name', 'Laravel') }}</span>
             </a>
         </div>
         <hr class="horizontal dark mt-0">
         <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link  active" href="{{ asset('/') }}pages/dashboard.html">
+                    <a class="nav-link  {{ request()->is('home') ? 'active' : '' }}" href="{{ url('/home') }}">
                         <div
                             class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                             <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1"
@@ -70,7 +71,8 @@
                     <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Master</h6>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  " href="{{ asset('/') }}pages/tables.html">
+                    <a class="nav-link  {{ request()->is('kelola_user') ? 'active' : '' }}"
+                        href="{{ url('/kelola_user') }}">
                         <div
                             class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                             <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 640 512">
@@ -83,7 +85,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  " href="{{ asset('/') }}pages/billing.html">
+                    <a class="nav-link  {{ request()->is('kelola_penduduk') ? 'active' : '' }}"
+                        href="{{ url('/kelola_penduduk') }}">
                         <div
                             class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                             <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512">
@@ -131,7 +134,7 @@
                                 href="javascript:;">Pages</a></li>
                         <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Dashboard</li>
                     </ol> --}}
-                    <h6 class="font-weight-bolder mb-0">Dashboard</h6>
+                    <h6 class="font-weight-bolder mb-0">@yield('judul')</h6>
                 </nav>
                 <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
                     <div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -142,16 +145,32 @@
                         </div> --}}
                     </div>
                     <ul class="navbar-nav  justify-content-end">
-                        {{-- <li class="nav-item d-flex align-items-center">
-                            <a class="btn btn-outline-primary btn-sm mb-0 me-3" target="_blank"
-                                href="https://www.creative-tim.com/builder?ref=navbar-soft-ui-dashboard">Online
-                                Builder</a>
-                        </li> --}}
-                        <li class="nav-item d-flex align-items-center">
-                            <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
+                        <li class="nav-item dropdown px-3 d-flex align-items-center">
+                            <a href="javascript:;" class="nav-link text-body font-weight-bold px-0 show"
+                                id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="true">
                                 <i class="fa fa-user me-sm-1"></i>
-                                <span class="d-sm-inline d-none">Nama Role</span>
+                                <span class="d-sm-inline d-none">{{ auth()->user()->role }}</span>
                             </a>
+                            <ul class="dropdown-menu dropdown-menu-end px-2 me-sm-n4"
+                                aria-labelledby="dropdownMenuButton" data-bs-popper="static">
+                                <li class="mb-2">
+                                    <a href="{{ route('logout') }}" class="dropdown-item border-radius-md"
+                                        onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                                        <div class="d-flex">
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="text-sm font-weight-normal mb-1">
+                                                    <i class="fas fa-sign-out-alt"></i> Logout
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        class="d-none">
+                                        @csrf
+                                    </form>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
@@ -159,8 +178,22 @@
         </nav>
         <!-- End Navbar -->
         <div class="container-fluid py-4">
+            {{-- @if (session()->has('sukses'))
+                <div class="row">
+                    <div class="col-12">
+                        <div class="alert alert-success">{{ Session('sukses') }}</div>
+                    </div>
+                </div>
+            @endif
+            @if (session()->has('gagal'))
+                <div class="row">
+                    <div class="col-12">
+                        <div class="alert alert-danger">{{ Session('gagal') }}</div>
+                    </div>
+                </div>
+            @endif --}}
             @yield('content')
-            <footer class="footer pt-3  ">
+            {{-- <footer class="footer pt-3  ">
                 <div class="container-fluid">
                     <div class="row align-items-center justify-content-lg-between">
                         <div class="col-lg-6 mb-lg-0 mb-4">
@@ -197,7 +230,7 @@
                         </div>
                     </div>
                 </div>
-            </footer>
+            </footer> --}}
         </div>
     </main>
     {{-- <div class="fixed-plugin">
@@ -283,181 +316,11 @@
         </div>
     </div> --}}
     <!--   Core JS Files   -->
-    <script src="{{ asset('/') }}assets/js/core/popper.min.js"></script>
-    <script src="{{ asset('/') }}assets/js/core/bootstrap.min.js"></script>
-    <script src="{{ asset('/') }}assets/js/plugins/perfect-scrollbar.min.js"></script>
-    <script src="{{ asset('/') }}assets/js/plugins/smooth-scrollbar.min.js"></script>
-    <script src="{{ asset('/') }}assets/js/plugins/chartjs.min.js"></script>
-    <script>
-        var ctx = document.getElementById("chart-bars").getContext("2d");
-
-        new Chart(ctx, {
-            type: "bar",
-            data: {
-                labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                datasets: [{
-                    label: "Sales",
-                    tension: 0.4,
-                    borderWidth: 0,
-                    borderRadius: 4,
-                    borderSkipped: false,
-                    backgroundColor: "#fff",
-                    data: [450, 200, 100, 220, 500, 100, 400, 230, 500],
-                    maxBarThickness: 6
-                }, ],
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false,
-                    }
-                },
-                interaction: {
-                    intersect: false,
-                    mode: 'index',
-                },
-                scales: {
-                    y: {
-                        grid: {
-                            drawBorder: false,
-                            display: false,
-                            drawOnChartArea: false,
-                            drawTicks: false,
-                        },
-                        ticks: {
-                            suggestedMin: 0,
-                            suggestedMax: 500,
-                            beginAtZero: true,
-                            padding: 15,
-                            font: {
-                                size: 14,
-                                family: "Open Sans",
-                                style: 'normal',
-                                lineHeight: 2
-                            },
-                            color: "#fff"
-                        },
-                    },
-                    x: {
-                        grid: {
-                            drawBorder: false,
-                            display: false,
-                            drawOnChartArea: false,
-                            drawTicks: false
-                        },
-                        ticks: {
-                            display: false
-                        },
-                    },
-                },
-            },
-        });
-
-
-        var ctx2 = document.getElementById("chart-line").getContext("2d");
-
-        var gradientStroke1 = ctx2.createLinearGradient(0, 230, 0, 50);
-
-        gradientStroke1.addColorStop(1, 'rgba(203,12,159,0.2)');
-        gradientStroke1.addColorStop(0.2, 'rgba(72,72,176,0.0)');
-        gradientStroke1.addColorStop(0, 'rgba(203,12,159,0)'); //purple colors
-
-        var gradientStroke2 = ctx2.createLinearGradient(0, 230, 0, 50);
-
-        gradientStroke2.addColorStop(1, 'rgba(20,23,39,0.2)');
-        gradientStroke2.addColorStop(0.2, 'rgba(72,72,176,0.0)');
-        gradientStroke2.addColorStop(0, 'rgba(20,23,39,0)'); //purple colors
-
-        new Chart(ctx2, {
-            type: "line",
-            data: {
-                labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                datasets: [{
-                        label: "Mobile apps",
-                        tension: 0.4,
-                        borderWidth: 0,
-                        pointRadius: 0,
-                        borderColor: "#cb0c9f",
-                        borderWidth: 3,
-                        backgroundColor: gradientStroke1,
-                        fill: true,
-                        data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
-                        maxBarThickness: 6
-
-                    },
-                    {
-                        label: "Websites",
-                        tension: 0.4,
-                        borderWidth: 0,
-                        pointRadius: 0,
-                        borderColor: "#3A416F",
-                        borderWidth: 3,
-                        backgroundColor: gradientStroke2,
-                        fill: true,
-                        data: [30, 90, 40, 140, 290, 290, 340, 230, 400],
-                        maxBarThickness: 6
-                    },
-                ],
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false,
-                    }
-                },
-                interaction: {
-                    intersect: false,
-                    mode: 'index',
-                },
-                scales: {
-                    y: {
-                        grid: {
-                            drawBorder: false,
-                            display: true,
-                            drawOnChartArea: true,
-                            drawTicks: false,
-                            borderDash: [5, 5]
-                        },
-                        ticks: {
-                            display: true,
-                            padding: 10,
-                            color: '#b2b9bf',
-                            font: {
-                                size: 11,
-                                family: "Open Sans",
-                                style: 'normal',
-                                lineHeight: 2
-                            },
-                        }
-                    },
-                    x: {
-                        grid: {
-                            drawBorder: false,
-                            display: false,
-                            drawOnChartArea: false,
-                            drawTicks: false,
-                            borderDash: [5, 5]
-                        },
-                        ticks: {
-                            display: true,
-                            color: '#b2b9bf',
-                            padding: 20,
-                            font: {
-                                size: 11,
-                                family: "Open Sans",
-                                style: 'normal',
-                                lineHeight: 2
-                            },
-                        }
-                    },
-                },
-            },
-        });
-    </script>
+    <script src="{{ asset('/assets/js/core/popper.min.js') }}"></script>
+    <script src="{{ asset('/assets/js/core/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('/assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
+    <script src="{{ asset('/assets/js/plugins/smooth-scrollbar.min.js') }}"></script>
+    <script src="{{ asset('/assets/js/plugins/chartjs.min.js') }}"></script>
     <script>
         var win = navigator.platform.indexOf('Win') > -1;
         if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -470,7 +333,8 @@
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
-    <script src="{{ asset('/') }}assets/js/soft-ui-dashboard.min.js?v=1.0.7"></script>
+    <script src="{{ asset('/assets/js/soft-ui-dashboard.min.js?v=1.0.7') }}"></script>
+    @yield('footer')
 </body>
 
 </html>

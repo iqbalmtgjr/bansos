@@ -28,13 +28,12 @@ return new class extends Migration
             $table->string('pekerjaan');
             $table->string('kewarganegaraan');
             $table->string('no_hp');
+            $table->string('penghasilan');
+            $table->string('tanggungan');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('penduduk');
