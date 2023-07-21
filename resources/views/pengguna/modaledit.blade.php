@@ -71,8 +71,7 @@
         </div>
     </div>
 </div>
-@section('footer')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+@push('footer')
     <script>
         function getdata(id) {
             console.log(id)
@@ -94,4 +93,4 @@
             });
         }
     </script>
-@endsection
+@endpush

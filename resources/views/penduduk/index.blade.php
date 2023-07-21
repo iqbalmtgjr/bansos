@@ -6,18 +6,18 @@
 @endpush
 
 @section('content')
-    @include('pengguna/modaltambah')
-    @include('pengguna/modaledit')
+    @include('penduduk/modaltambah')
+    {{-- @include('pengguna/modaledit') --}}
     <div class="row">
         <div class="col-12">
             <div class="card mb-4">
                 <div class="card-header pb-0">
-                    <h6>Data Pengguna</h6>
+                    <h6>Data Penduduk</h6>
                     <button class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#tambah">Tambah
-                        Pengguna</button>
+                        Penduduk</button>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
-                    <div class="table-responsive p-0">
+                    <div class="table-responsive p-3">
                         <table id="myTable" class="table align-items-center mb-0">
                             <thead>
                                 <tr>
@@ -25,13 +25,13 @@
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         No</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                        NIK</th>
+                                    <th
+                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Nama</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Username</th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Email</th>
+                                        No Hp</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Aksi</th>
@@ -45,20 +45,20 @@
                                             {{-- <p class="text-xs text-secondary mb-0">Organization</p> --}}
                                         </td>
                                         <td class="align-middle">
-                                            <p class="text-xs font-weight-bold mb-0">{{ $item->name }}</p>
+                                            <p class="text-xs font-weight-bold mb-0">{{ $item->nik }}</p>
                                         </td>
                                         <td class="align-middle text-center">
-                                            <p class="text-xs font-weight-bold mb-0">{{ $item->username }}</p>
+                                            <p class="text-xs font-weight-bold mb-0">{{ $item->nama_penduduk }}</p>
                                         </td>
                                         <td class="align-middle text-center">
-                                            <p class="text-xs font-weight-bold mb-0">{{ $item->email }}</p>
+                                            <p class="text-xs font-weight-bold mb-0">{{ $item->no_hp }}</p>
                                         </td>
                                         <td class="align-middle text-center">
                                             <a href="javascript:;" onclick="getdata({{ $item->id }})"
                                                 class="font-weight-bold text-xs btn btn-warning btn-sm"
                                                 data-toggle="tooltip" data-original-title="Edit Pengguna"
                                                 data-bs-toggle="modal" data-bs-target="#edit">
-                                                Edit
+                                                Lihat/Edit
                                             </a>
                                             <a href="javascript:;"
                                                 class="font-weight-bold text-xs btn btn-danger btn-sm delete"

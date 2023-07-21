@@ -22,7 +22,7 @@
     <!-- Nepcha Analytics (nepcha.com) -->
     <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
     <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
-    @yield('header')
+    @stack('header')
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
@@ -316,14 +316,13 @@
         </div>
     </div> --}}
     <!--   Core JS Files   -->
-    @yield('footer')
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="sweetalert2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <script src="{{ asset('/assets/js/core/popper.min.js') }}"></script>
     <script src="{{ asset('/assets/js/core/bootstrap.min.js') }}"></script>
     <script src="{{ asset('/assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
     <script src="{{ asset('/assets/js/plugins/smooth-scrollbar.min.js') }}"></script>
     <script src="{{ asset('/assets/js/plugins/chartjs.min.js') }}"></script>
+    @stack('footer')
     <script>
         var win = navigator.platform.indexOf('Win') > -1;
         if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -337,23 +336,6 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="{{ asset('/assets/js/soft-ui-dashboard.min.js?v=1.0.7') }}"></script>
-    {{-- <script>
-        Swal.fire({
-                title: 'Yakin?',
-                text: "Mau Hapus ?",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya',
-            })
-            .then((result) => {
-                console.log(result);
-                if (result.value) {
-                    window.location = `{{ url('/user/hapus/') }}/${Id}`;
-                }
-            });
-    </script> --}}
 </body>
 
 </html>

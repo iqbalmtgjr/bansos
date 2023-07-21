@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('kecamatan');
             $table->string('kabupaten');
             $table->string('provinsi');
-            $table->string('status_kawin');
+            $table->integer('status_kawin');
             $table->string('pekerjaan');
             $table->string('kewarganegaraan');
             $table->string('no_hp');
