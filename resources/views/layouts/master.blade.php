@@ -316,6 +316,9 @@
         </div>
     </div> --}}
     <!--   Core JS Files   -->
+    @yield('footer')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="sweetalert2.min.js"></script>
     <script src="{{ asset('/assets/js/core/popper.min.js') }}"></script>
     <script src="{{ asset('/assets/js/core/bootstrap.min.js') }}"></script>
     <script src="{{ asset('/assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
@@ -334,7 +337,23 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="{{ asset('/assets/js/soft-ui-dashboard.min.js?v=1.0.7') }}"></script>
-    @yield('footer')
+    {{-- <script>
+        Swal.fire({
+                title: 'Yakin?',
+                text: "Mau Hapus ?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya',
+            })
+            .then((result) => {
+                console.log(result);
+                if (result.value) {
+                    window.location = `{{ url('/user/hapus/') }}/${Id}`;
+                }
+            });
+    </script> --}}
 </body>
 
 </html>

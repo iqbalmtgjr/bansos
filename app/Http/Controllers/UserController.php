@@ -52,27 +52,34 @@ class UserController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:50',
+            'username' => 'required|max:50',
+            'email' => 'required|max:35|email',
+            'role' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            toastr()->error('Ada Kesalahan Saat Penginputan!', 'Gagal');
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+        $fuser = User::find($request->id);
+        $fuser->update([
+            'name' => $request->name,
+            'username' => $request->username,
+            'email' => $request->email,
+            'role' => $request->role,
+        ]);
+
+        toastr()->success('Data user berhasil diubah.', 'Sukses');
+        return redirect()->back();
     }
 
     /**
@@ -80,6 +87,15 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = User::find($id)->delete();
+
+        toastr()->success('Data user berhasil dihapus.', 'Sukses');
+        return redirect()->back();
+    }
+
+    public function getdata($id)
+    {
+        $data = User::find($id);
+        return $data;
     }
 }

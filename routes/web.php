@@ -28,3 +28,6 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/kelola_user', [UserController::class, 'index'])->name('kel-user');
 Route::post('/user/input', [UserController::class, 'store'])->name('input-user');
+Route::get('/user/getdata/{id}', [UserController::class, 'getdata']);
+Route::post('/user/update', [UserController::class, 'update'])->name('update-user');
+Route::get('/user/hapus/{id}', [UserController::class, 'destroy'])->name('hapus-user');
