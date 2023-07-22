@@ -2,12 +2,11 @@
 {{-- @section('judul', 'Data Pengguna') --}}
 @push('header')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="sweetalert2.min.css">
 @endpush
 
 @section('content')
     @include('penduduk/modaltambah')
-    {{-- @include('pengguna/modaledit') --}}
+    @include('penduduk/modaledit')
     <div class="row">
         <div class="col-12">
             <div class="card mb-4">
@@ -62,7 +61,7 @@
                                             </a>
                                             <a href="javascript:;"
                                                 class="font-weight-bold text-xs btn btn-danger btn-sm delete"
-                                                data-id="{{ $item->id }}" data-nama="{{ $item->name }}"
+                                                data-id="{{ $item->id }}" data-nama="{{ $item->nama_penduduk }}"
                                                 data-toggle="tooltip" data-original-title="Hapus Pengguna">
                                                 Hapus
                                             </a>
@@ -80,7 +79,6 @@
 
 @push('footer')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="sweetalert2.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
     <script>
         let table = new DataTable('#myTable');
@@ -102,7 +100,7 @@
                 .then((result) => {
                     console.log(result);
                     if (result.value) {
-                        window.location = `{{ url('/user/hapus/') }}/${Id}`;
+                        window.location = `{{ url('/penduduk/hapus/') }}/${Id}`;
                     }
                 });
         })
