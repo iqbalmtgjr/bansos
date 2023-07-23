@@ -39,7 +39,7 @@ class PendudukController extends Controller
             'agama' => 'required',
             'rt' => 'required',
             'rw' => 'required',
-            'kel/desa' => 'required',
+            'kel_desa' => 'required',
             'kecamatan' => 'required',
             'kabupaten' => 'required',
             'provinsi' => 'required',
@@ -70,11 +70,24 @@ class PendudukController extends Controller
      */
     public function update(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|max:50',
-            'username' => 'required|max:50',
-            'email' => 'required|max:35|email',
-            'role' => 'required',
+        $validator = Validator::make($request->except(['id', $request->id]), [
+            // 'nik' => 'required|max:30|unique:penduduk',
+            'no_kk' => 'required|max:30',
+            'nama_penduduk' => 'required|max:50',
+            'jenis_kelamin' => 'required',
+            'agama' => 'required',
+            'rt' => 'required',
+            'rw' => 'required',
+            'kel_desa' => 'required',
+            'kecamatan' => 'required',
+            'kabupaten' => 'required',
+            'provinsi' => 'required',
+            'status_kawin' => 'required',
+            'pekerjaan' => 'required',
+            'kewarganegaraan' => 'required',
+            'no_hp' => 'required',
+            'penghasilan' => 'required',
+            'tanggungan' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -85,12 +98,7 @@ class PendudukController extends Controller
                 ->withInput();
         }
         $fuser = Penduduk::find($request->id);
-        $fuser->update([
-            'name' => $request->name,
-            'username' => $request->username,
-            'email' => $request->email,
-            'role' => $request->role,
-        ]);
+        $fuser->update($request->all());
 
         toastr()->success('Data user berhasil diubah.', 'Sukses');
         return redirect()->back();

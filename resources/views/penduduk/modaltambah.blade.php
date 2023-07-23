@@ -151,15 +151,15 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Kelurahan/Desa</label>
-                                <select class="form-control @error('kel/desa') is-invalid @enderror" name="kel/desa"
+                                <select class="form-control @error('kel_desa') is-invalid @enderror" name="kel_desa"
                                     id="">
                                     <option value="">-- Pilih Kelurahan/Desa --</option>
                                     @foreach ($kelurahan as $item)
-                                        <option value="{{ $item->name }}" @selected(old('kel/desa') == '{{ $item->name }}')>
+                                        <option value="{{ $item->name }}" @selected(old('kel_desa') == '{{ $item->name }}')>
                                             {{ $item->name }}</option>
                                     @endforeach
                                 </select>
-                                @error('kel/desa')
+                                @error('kel_desa')
                                     <span class="invalid-feedback" role="alert">
                                         <div id="emailHelp" class="form-text text-danger">{{ $message }}
                                         </div>

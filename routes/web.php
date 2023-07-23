@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PendudukController;
+use App\Http\Controllers\PengajuanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,13 +17,15 @@ use App\Http\Controllers\PendudukController;
 |
 */
 
-Route::get('/', function () {
-    return view('form_pengajuan_bansos');
-});
 
 Route::get('/dashboard', function () {
     return view('welcome');
 });
+
+//pengajuan
+Route::get('/', [PengajuanController::class, 'pengajuan']);
+Route::post('/', [PengajuanController::class, 'pengajuan']);
+Route::post('/pengajuan/input', [PengajuanController::class, 'store']);
 
 Auth::routes();
 

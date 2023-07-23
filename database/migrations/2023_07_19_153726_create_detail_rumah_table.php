@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('detail_rumah', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('pengajuan_bansos_id');
             $table->string('foto_rmh_tampak_dpn');
             $table->string('foto_rmh_tampak_belakang');
             $table->float('luas_bangunan');

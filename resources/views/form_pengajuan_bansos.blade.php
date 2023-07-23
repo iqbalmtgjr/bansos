@@ -7,7 +7,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('/assets/img/apple-icon.png') }}">
     <link rel="icon" type="image/png" href="{{ asset('/assets/img/favicon.png') }}">
     <title>
-        Formulir Pengajuan Bansos - Bansos.Id
+        Formulir Pengajuan Bansos - {{ config('app.name', 'Laravel') }}
     </title>
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -72,7 +72,7 @@
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-lg-5 text-center mx-auto">
-                            <h1 class="text-white mb-2 mt-5">Selamat Datang di Bansos.Id!</h1>
+                            <h1 class="text-white mb-2 mt-5">Selamat Datang di {{ config('app.name', 'Laravel') }}</h1>
                             <p class="text-lead text-white">Isilah formulir dibawah ini untuk pengajuan bantuan sosial
                                 bagi masyarakat yang membutuhkan.
                             </p>
@@ -82,26 +82,174 @@
             </div>
             <div class="container">
                 <div class="row mt-lg-n10 mt-md-n11 mt-n10">
-                    <div class="col-xl-4 col-lg-5 col-md-7 mx-auto">
-                        <div class="card z-index-0">
-                            <div class="card-header text-center pt-4">
-                                <h5>Formulir Bantuan Sosial</h5>
-                            </div>
-                            <div class="card-body">
-                                <form role="form text-left">
-                                    <div class="mb-3">
-                                        <input type="text" class="form-control" placeholder="Cek NIK anda"
-                                            aria-label="Name" aria-describedby="email-addon">
-                                    </div>
-                            </div>
-                            <div class="text-center">
-                                <button type="button" class="btn bg-gradient-dark w-100 my-4 mb-2">Cek
-                                    Sekarang</button>
-                            </div>
-                            </form>
-                        </div>
-                    </div>
+                    @if (empty($get_id))
+                        <div class="col-xl-4 col-lg-5 col-md-7 mx-auto">
+                            <div class="card z-index-0">
+                                <div class="card-header text-center pt-4">
+                                    <h5>Formulir Bantuan Sosial</h5>
+                                </div>
+                                <div class="card-body">
+                                    <form role="form text-left" action="{{ url('/') }}" method="POST">
+                                        {{ csrf_field() }}
+                                        <div class="mb-3">
+                                            <input name="nik" type="number" class="form-control"
+                                                placeholder="Cek NIK anda" aria-label="Name"
+                                                aria-describedby="email-addon">
+                                        </div>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Cek
+                                        Sekarang</button>
+                                </div>
+                                </form>
+                            @else
+                                <div class="col-12 mx-auto">
+                                    <div class="card z-index-0">
+                                        <div class="card-header text-center pt-4">
+                                            <h5>Formulir Bantuan Sosial</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <form role="form text-left" action="{{ url('/pengajuan/input') }}"
+                                                method="POST">
+                                                {{ csrf_field() }}
+                                                <input type="hidden" name="penduduk_id" value="{{ $get_id }}">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="">Jenis Bansos</label>
+                                                            <select class="form-control" name="jenis_bansos_id">
+                                                                <option value="">-- Pilih Jenis Bansos --</option>
+                                                                @foreach ($jenis_bansos as $item)
+                                                                    <option value="{{ $item->id }}">
+                                                                        {{ $item->nama_bansos }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                            @error('jenis_bansos_id')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <div id="emailHelp" class="form-text text-danger">
+                                                                        {{ $message }}
+                                                                    </div>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="">Upload Surat Keterangan Tidak
+                                                                Mampu</label>
+                                                            <input name="surat_ket_tidak_mampu" type="file"
+                                                                class="form-control" aria-label="Name">
+                                                            @error('surat_ket_tidak_mampu')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <div id="emailHelp" class="form-text text-danger">
+                                                                        {{ $message }}
+                                                                    </div>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="">Upload Foto Kartu Keluarga</label>
+                                                            <input name="foto_kk" type="file" class="form-control"
+                                                                aria-label="Name">
+                                                            @error('foto_kk')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <div id="emailHelp" class="form-text text-danger">
+                                                                        {{ $message }}
+                                                                    </div>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="">Upload Foto KTP</label>
+                                                            <input name="foto_ktp" type="file"
+                                                                class="form-control" aria-label="Name">
+                                                            @error('foto_ktp')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <div id="emailHelp" class="form-text text-danger">
+                                                                        {{ $message }}
+                                                                    </div>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="">Upload Pas Foto</label>
+                                                            <input name="foto_diri" type="file"
+                                                                class="form-control" aria-label="Name">
+                                                            @error('foto_diri')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <div id="emailHelp" class="form-text text-danger">
+                                                                        {{ $message }}
+                                                                    </div>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="">Upload Foto Rumah Tampak
+                                                                Depan</label>
+                                                            <input name="foto_rmh_tampak_dpn	" type="file"
+                                                                class="form-control" aria-label="Name">
+                                                            @error('foto_rmh_tampak_dpn ')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <div id="emailHelp" class="form-text text-danger">
+                                                                        {{ $message }}
+                                                                    </div>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="">Upload Foto Rumah Tampak
+                                                                Belakang</label>
+                                                            <input name="foto_rmh_tampak_belakang" type="file"
+                                                                class="form-control" aria-label="Name">
+                                                            @error('foto_rmh_tampak_belakang')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <div id="emailHelp" class="form-text text-danger">
+                                                                        {{ $message }}
+                                                                    </div>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="">Luas Bangunan</label>
+                                                            <input name="luas_bangunan" type="number"
+                                                                class="form-control" aria-label="Name"
+                                                                placeholder="Masukkan luas bangunan.">
+                                                            <div id="emailHelp" class="form-text text-warning">
+                                                                Catatan: Dalam Meter Persegi
+                                                            </div>
+                                                            @error('luas_bangunan')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <div id="emailHelp" class="form-text text-danger">
+                                                                        {{ $message }}
+                                                                    </div>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="">Status Rumah</label>
+                                                            <input name="status_rumah" type="file"
+                                                                class="form-control" aria-label="Name">
+                                                            @error('status_rumah')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <div id="emailHelp" class="form-text text-danger">
+                                                                        {{ $message }}
+                                                                    </div>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                        <div class="text-center">
+                                            <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Ajukan
+                                                Sekarang</button>
+                                        </div>
+                                        </form>
+                    @endif
                 </div>
+            </div>
+            </div>
             </div>
             </div>
         </section>

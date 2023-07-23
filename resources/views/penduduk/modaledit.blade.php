@@ -13,7 +13,7 @@
                             <input type="hidden" name="id" id="id">
                             <div class="mb-3">
                                 <label class="form-label">NIK</label>
-                                <input name="nik" id="nik" type="number"
+                                <input disabled name="nik" id="nik" type="number"
                                     class="form-control @error('nik') is-invalid @enderror" value="{{ old('nik') }}"
                                     placeholder="Masukkan No NIK">
                                 @error('nik')
@@ -152,15 +152,15 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Kelurahan/Desa</label>
-                                <select class="form-control @error('kel/desa') is-invalid @enderror" name="kel/desa"
-                                    id="kel/desa">
+                                <select class="form-control @error('kel_desa') is-invalid @enderror" name="kel_desa"
+                                    id="kel_desa">
                                     <option value="">-- Pilih Kelurahan/Desa --</option>
                                     @foreach ($kelurahan as $item)
-                                        <option value="{{ $item->name }}" @selected(old('kel/desa') == '{{ $item->name }}')>
+                                        <option value="{{ $item->name }}" @selected(old('kel_desa') == '{{ $item->name }}')>
                                             {{ $item->name }}</option>
                                     @endforeach
                                 </select>
-                                @error('kel/desa')
+                                @error('kel_desa')
                                     <span class="invalid-feedback" role="alert">
                                         <div id="emailHelp" class="form-text text-danger">{{ $message }}
                                         </div>
@@ -317,7 +317,7 @@
                     $('#no_hp').val(response.no_hp);
                     $('#penghasilan').val(response.penghasilan);
                     $('#tanggungan').val(response.tanggungan);
-                    $('#kel/desa').val(response.kel / desa);
+                    $('#kel_desa').val(response.kel_desa);
                 }
             });
         }
