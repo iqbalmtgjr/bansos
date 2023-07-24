@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('acc_rw')->nullable();
             $table->integer('acc_desa')->nullable();
             $table->integer('acc_kecamatan')->nullable();
+            $table->integer('status_sms')->nullable();
             $table->timestamps();
         });
     }

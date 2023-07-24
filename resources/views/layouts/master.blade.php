@@ -99,8 +99,22 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  {{ request()->is('kelola_pengajuan') ? 'active' : '' }}"
-                        href="{{ url('/kelola_pengajuan') }}">
+                    <a class="nav-link  {{ request()->is('kelola_jenis_bansos') ? 'active' : '' }}"
+                        href="{{ url('/kelola_jenis_bansos') }}">
+                        <div
+                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512">
+                                <!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                                <path
+                                    d="M7.8 207.7c-13.1-17.8-9.3-42.8 8.5-55.9L142.9 58.5C166.2 41.3 194.5 32 223.5 32H384 544c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32H507.2l-44.9 36c-22.7 18.2-50.9 28-80 28H304 288 224c-17.7 0-32-14.3-32-32s14.3-32 32-32h64 16c8.8 0 16-7.2 16-16s-7.2-16-16-16H183.4L63.7 216.2c-17.8 13.1-42.8 9.3-55.9-8.5zM382.4 160l0 0 .9 0c-.3 0-.6 0-.9 0zM568.2 304.3c13.1 17.8 9.3 42.8-8.5 55.9L433.1 453.5c-23.4 17.2-51.6 26.5-80.7 26.5H192 32c-17.7 0-32-14.3-32-32V384c0-17.7 14.3-32 32-32H68.8l44.9-36c22.7-18.2 50.9-28 80-28H272h16 64c17.7 0 32 14.3 32 32s-14.3 32-32 32H288 272c-8.8 0-16 7.2-16 16s7.2 16 16 16H392.6l119.7-88.2c17.8-13.1 42.8-9.3 55.9 8.5zM193.6 352l0 0-.9 0c.3 0 .6 0 .9 0z" />
+                            </svg>
+                        </div>
+                        <span class="nav-link-text ms-1">Data Jenis Bansos</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @yield('active') {{ request()->is('daftar_pengajuan') ? 'active' : '' }}"
+                        href="{{ url('/daftar_pengajuan') }}">
                         <div
                             class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                             <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512">
@@ -143,11 +157,13 @@
             navbar-scroll="true">
             <div class="container-fluid py-1 px-3">
                 <nav aria-label="breadcrumb">
-                    {{-- <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a>
+                    <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+                        @yield('breadcrumb')
+                        {{-- <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark"
+                                href="javascript:;">Daftar Pengajuan</a>
                         </li>
-                        <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Dashboard</li>
-                    </ol> --}}
+                        <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Dashboard</li> --}}
+                    </ol>
                     <h6 class="font-weight-bolder mb-0">@yield('judul')</h6>
                 </nav>
                 <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">

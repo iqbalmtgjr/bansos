@@ -6,15 +6,15 @@
 @endpush
 
 @section('content')
-    @include('pengguna/modaltambah')
-    @include('pengguna/modaledit')
+    @include('jenis_bansos/modaltambah')
+    @include('jenis_bansos/modaledit')
     <div class="row">
         <div class="col-12">
             <div class="card mb-4">
                 <div class="card-header pb-0">
-                    <h6>Data Pengguna</h6>
+                    <h6>Data Jenis Bansos</h6>
                     <button class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#tambah">Tambah
-                        Pengguna</button>
+                        Jenis Bansos</button>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="table-responsive p-4">
@@ -25,13 +25,10 @@
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         No</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                        Nama</th>
+                                        Nama Bansos</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Username</th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Email</th>
+                                        Status</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Aksi</th>
@@ -45,25 +42,22 @@
                                             {{-- <p class="text-xs text-secondary mb-0">Organization</p> --}}
                                         </td>
                                         <td class="align-middle">
-                                            <p class="text-xs font-weight-bold mb-0">{{ $item->name }}</p>
+                                            <p class="text-xs font-weight-bold mb-0">{{ $item->nama_bansos }}</p>
                                         </td>
                                         <td class="align-middle text-center">
-                                            <p class="text-xs font-weight-bold mb-0">{{ $item->username }}</p>
-                                        </td>
-                                        <td class="align-middle text-center">
-                                            <p class="text-xs font-weight-bold mb-0">{{ $item->email }}</p>
+                                            <p class="text-xs font-weight-bold mb-0">{{ $item->status }}</p>
                                         </td>
                                         <td class="align-middle text-center">
                                             <a href="javascript:;" onclick="getdata({{ $item->id }})"
                                                 class="font-weight-bold text-xs btn btn-warning btn-sm"
-                                                data-toggle="tooltip" data-original-title="Edit Pengguna"
+                                                data-toggle="tooltip" data-original-title="Edit Jenis Bansos"
                                                 data-bs-toggle="modal" data-bs-target="#edit">
                                                 Edit
                                             </a>
                                             <a href="javascript:;"
                                                 class="font-weight-bold text-xs btn btn-danger btn-sm delete"
-                                                data-id="{{ $item->id }}" data-nama="{{ $item->name }}"
-                                                data-toggle="tooltip" data-original-title="Hapus Pengguna">
+                                                data-id="{{ $item->id }}" data-nama="{{ $item->nama_bansos }}"
+                                                data-toggle="tooltip" data-original-title="Hapus Jenis Bansos">
                                                 Hapus
                                             </a>
                                         </td>
@@ -102,7 +96,7 @@
                 .then((result) => {
                     console.log(result);
                     if (result.value) {
-                        window.location = `{{ url('/user/hapus/') }}/${Id}`;
+                        window.location = `{{ url('/jenis_bansos/hapus/') }}/${Id}`;
                     }
                 });
         })

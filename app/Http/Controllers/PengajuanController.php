@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Detailrumah;
 use App\Models\Penduduk;
 use App\Models\Pengajuan;
 use App\Models\Jenisbansos;
@@ -15,7 +16,14 @@ class PengajuanController extends Controller
      */
     public function index()
     {
-        //
+        $data = Pengajuan::all();
+        return view('pengajuan.index', compact('data'));
+    }
+
+    public function view($id)
+    {
+        $data = Pengajuan::find($id);
+        return view('pengajuan.view', compact('data'));
     }
 
     /**
@@ -24,17 +32,23 @@ class PengajuanController extends Controller
     public function pengajuan(Request $request)
     {
         if (!empty($request->nik) && $this->cekNik($request->nik) == true) {
-            $get_id = $this->cekNik($request->nik)->id;
-            $jenis_bansos = Jenisbansos::all();
-
+            $data = $this->cekNik($request->nik)->id;
             toastr()->success('Lanjutkan masukkan data pengajuan anda.', 'NIK Terdeteksi');
-            return view('form_pengajuan_bansos', compact('get_id', 'jenis_bansos'));
+            return redirect('form_pengajuan' . '/' . $data);
         } elseif ($request->nik != null && $this->cekNik($request->nik) == false) {
             toastr()->error('No NIK anda tidak terdaftar disistem! Silahkan lapor ke pihak RT setempat.', 'Maaf');
-            return view('form_pengajuan_bansos');
+            return view('pengajuan.pengajuan_bansos');
         } else {
-            return view('form_pengajuan_bansos');
+            return view('pengajuan.pengajuan_bansos');
         }
+    }
+
+    public function formPengajuan($data)
+    {
+        $get_id = $data;
+        $jenis_bansos = Jenisbansos::all();
+
+        return view('pengajuan.form_pengajuan_bansos', compact('get_id', 'jenis_bansos'));
     }
 
     public function cekNik($nik)
@@ -43,19 +57,31 @@ class PengajuanController extends Controller
         return $data;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    public function cekPenduduk($id)
+    {
+        $data = Penduduk::where('id', $id)->first();
+        return $data;
+    }
+
+    public function jumlahPengajuan($id)
+    {
+        // $penduduk = Penduduk::where('nik', $nik)->first()->id;
+        $data = Pengajuan::where('penduduk_id', $id)->get();
+
+        return $data;
+    }
+
     public function store(Request $request)
     {
-        dd($request->all());
+        // dd($this->jumlahPengajuan($request->penduduk_id)->count());
+
         $validator = Validator::make($request->all(), [
-            'jenis_bansos_id' => 'required|max:30',
-            'surat_ket_tidak_mampu' => 'required|max:50',
+            'jenis_bansos_id' => 'required',
+            'surat_ket_tidak_mampu' => 'required',
             'foto_kk' => 'required',
             'foto_ktp' => 'required',
             'foto_diri' => 'required',
-            'pengajuan_bansos_id' => 'required',
+
             'foto_rmh_tampak_dpn' => 'required',
             'foto_rmh_tampak_belakang' => 'required',
             'luas_bangunan' => 'required',
@@ -68,6 +94,51 @@ class PengajuanController extends Controller
                 ->back()
                 ->withErrors($validator)
                 ->withInput();
+        }
+
+        if ($this->jumlahPengajuan($request->penduduk_id)->count() >= 2) {
+            toastr()->error('Anda sudah melebihi 2 kali pengajuan.', 'Maaf');
+            return view('pengajuan.pengajuan_bansos');
+        } else {
+            // upload surat ket tidak mampu
+            $nama_file_surat_ket_tidak_mampu = round(microtime(true) * 1000) . '-' . str_replace(' ', '-', $request->file('surat_ket_tidak_mampu')->getClientOriginalName());
+            $request->file('surat_ket_tidak_mampu')->move(public_path('foto_pengajuan/'), $nama_file_surat_ket_tidak_mampu);
+            // upload foto kk
+            $nama_file_foto_kk = round(microtime(true) * 1000) . '-' . str_replace(' ', '-', $request->file('foto_kk')->getClientOriginalName());
+            $request->file('foto_kk')->move(public_path('foto_pengajuan/'), $nama_file_foto_kk);
+            // upload foto ktp
+            $nama_file_foto_ktp = round(microtime(true) * 1000) . '-' . str_replace(' ', '-', $request->file('foto_ktp')->getClientOriginalName());
+            $request->file('foto_ktp')->move(public_path('foto_pengajuan/'), $nama_file_foto_ktp);
+            // upload foto pas foto
+            $nama_file_foto_diri = round(microtime(true) * 1000) . '-' . str_replace(' ', '-', $request->file('foto_diri')->getClientOriginalName());
+            $request->file('foto_diri')->move(public_path('foto_pengajuan/'), $nama_file_foto_diri);
+
+            $create_pengajuan = Pengajuan::create([
+                'penduduk_id' => $request->penduduk_id,
+                'jenis_bansos_id' => $request->jenis_bansos_id,
+                'surat_ket_tidak_mampu' => $nama_file_surat_ket_tidak_mampu,
+                'foto_kk' => $nama_file_foto_kk,
+                'foto_ktp' => $nama_file_foto_ktp,
+                'foto_diri' => $nama_file_foto_diri,
+            ]);
+
+            // upload foto rmh tampak dpn
+            $nama_file_foto_rmh_tampak_dpn = round(microtime(true) * 1000) . '-' . str_replace(' ', '-', $request->file('foto_rmh_tampak_dpn')->getClientOriginalName());
+            $request->file('foto_rmh_tampak_dpn')->move(public_path('foto_pengajuan/'), $nama_file_foto_rmh_tampak_dpn);
+            // upload foto rmh tampak belakang
+            $nama_file_foto_rmh_tampak_belakang = round(microtime(true) * 1000) . '-' . str_replace(' ', '-', $request->file('foto_rmh_tampak_belakang')->getClientOriginalName());
+            $request->file('foto_rmh_tampak_belakang')->move(public_path('foto_pengajuan/'), $nama_file_foto_rmh_tampak_belakang);
+
+            $create_detail_rumah = Detailrumah::create([
+                'pengajuan_bansos_id' => $create_pengajuan->id,
+                'foto_rmh_tampak_dpn' => $nama_file_foto_rmh_tampak_dpn,
+                'foto_rmh_tampak_belakang' => $nama_file_foto_rmh_tampak_belakang,
+                'luas_bangunan' => $request->luas_bangunan,
+                'status_rumah' => $request->status_rumah,
+            ]);
+
+            toastr()->success('Data anda berhasil diajukan.', 'Sukses');
+            return redirect('/');
         }
     }
 

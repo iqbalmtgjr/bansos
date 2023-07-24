@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('foto_rmh_tampak_dpn');
             $table->string('foto_rmh_tampak_belakang');
             $table->float('luas_bangunan');
-            $table->integer('status_rumah');
+            $table->string('status_rumah');
             $table->timestamps();
         });
     }

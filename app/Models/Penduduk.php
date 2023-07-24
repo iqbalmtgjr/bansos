@@ -10,4 +10,9 @@ class Penduduk extends Model
     use HasFactory;
     protected $table = 'penduduk';
     protected $guarded = ['id'];
+
+    public function pengajuan()
+    {
+        return $this->hasOne(Pengajuan::class);
+    }
 }

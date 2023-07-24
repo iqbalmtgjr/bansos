@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\JenisbansosController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -23,8 +24,9 @@ Route::get('/dashboard', function () {
 });
 
 //pengajuan
-Route::get('/', [PengajuanController::class, 'pengajuan']);
+Route::get('/', [PengajuanController::class, 'pengajuan'])->name('pengajuan');
 Route::post('/', [PengajuanController::class, 'pengajuan']);
+Route::get('/form_pengajuan/{id}', [PengajuanController::class, 'formPengajuan'])->name('form-pengajuan');
 Route::post('/pengajuan/input', [PengajuanController::class, 'store']);
 
 Auth::routes();
@@ -44,3 +46,18 @@ Route::post('/penduduk/input', [PendudukController::class, 'store'])->name('inpu
 Route::get('/penduduk/getdata/{id}', [PendudukController::class, 'getdata']);
 Route::post('/penduduk/update', [PendudukController::class, 'update'])->name('update-penduduk');
 Route::get('/penduduk/hapus/{id}', [PendudukController::class, 'destroy'])->name('hapus-penduduk');
+
+// kel_jenis_bansos
+Route::get('/kelola_jenis_bansos', [JenisbansosController::class, 'index'])->name('kel-jenis-bansos');
+Route::post('/jenis_bansos/input', [JenisbansosController::class, 'store'])->name('input-jenis-bansos');
+Route::get('/jenis_bansos/getdata/{id}', [JenisbansosController::class, 'getdata']);
+Route::post('/jenis_bansos/update', [JenisbansosController::class, 'update'])->name('update-jenis-bansos');
+Route::get('/jenis_bansos/hapus/{id}', [JenisbansosController::class, 'destroy'])->name('hapus-jenis-bansos');
+
+// kel_pengajuan
+Route::get('/daftar_pengajuan', [PengajuanController::class, 'index'])->name('daftar-pengajuan');
+Route::get('/pengajuan/lihat/{id}', [PengajuanController::class, 'view'])->name('lihat-pengajuan');
+// Route::post('/pengajuan/input', [PengajuanController::class, 'store'])->name('input-pengajuan');
+// Route::get('/pengajuan/getdata/{id}', [PengajuanController::class, 'getdata']);
+// Route::post('/pengajuan/update', [PengajuanController::class, 'update'])->name('update-pengajuan');
+Route::get('/pengajuan/hapus/{id}', [PengajuanController::class, 'destroy'])->name('hapus-pengajuan');
