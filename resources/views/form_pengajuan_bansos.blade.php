@@ -228,8 +228,13 @@
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="">Status Rumah</label>
-                                                            <input name="status_rumah" type="file"
-                                                                class="form-control" aria-label="Name">
+                                                            <select class="form-control" name="status_rumah"
+                                                                id="">
+                                                                <option value="">-- Pilih Status Rumah --
+                                                                </option>
+                                                                <option value="rumah_pribadi">Rumah Pribadi</option>
+                                                                <option value="kontrakan">Rumah Kontrakan</option>
+                                                            </select>
                                                             @error('status_rumah')
                                                                 <span class="invalid-feedback" role="alert">
                                                                     <div id="emailHelp" class="form-text text-danger">

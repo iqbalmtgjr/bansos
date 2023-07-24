@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('agama');
             $table->string('rt');
             $table->string('rw');
-            $table->string('kel/desa');
+            $table->string('kel_desa');
             $table->string('kecamatan');
             $table->string('kabupaten');
             $table->string('provinsi');
