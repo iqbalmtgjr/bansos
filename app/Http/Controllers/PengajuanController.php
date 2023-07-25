@@ -143,19 +143,12 @@ class PengajuanController extends Controller
     }
 
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        Pengajuan::find($id)->delete();
+        Detailrumah::where('pengajuan_bansos_id', $id)->first()->delete();
+
+        toastr()->success('Data pengajuan berhasil dihapus.', 'Sukses');
+        return redirect()->back();
     }
 }

@@ -2,7 +2,8 @@
 {{-- @section('judul', 'Data Pengguna') --}}
 @push('header')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="sweetalert2.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css"
+        rel="stylesheet" />
 @endpush
 
 @section('content')
@@ -111,8 +112,10 @@
                                                     SMS</a>
                                                 <a href="javascript:;"
                                                     class="font-weight-bold text-xs btn btn-danger btn-sm delete"
-                                                    data-id="{{ $item->id }}" data-nama="{{ $item->nama_bansos }}"
-                                                    data-toggle="tooltip" data-original-title="Hapus Pengajuan">
+                                                    data-id="{{ $item->id }}"
+                                                    data-namapen="{{ $item->penduduk->nama_penduduk }}"
+                                                    data-nama="{{ $item->jenisbansos->nama_bansos }}" data-toggle="tooltip"
+                                                    data-original-title="Hapus Pengajuan">
                                                     Hapus
                                                 </a>
                                             </td>
@@ -130,7 +133,6 @@
 
 @push('footer')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="sweetalert2.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
     <script>
         let table = new DataTable('#myTable');
@@ -138,11 +140,13 @@
         $('#myTable').on('click', '.delete', function() {
             let data = $(this).data()
             let Id = data.id
-            let Nama = data.nama
+            let Namabansos = data.nama
+            let Namapenduduk = data.namapen
             // console.log(Id);
             Swal.fire({
                     title: 'Yakin?',
-                    text: "Mau Hapus " + Nama + "?",
+                    text: "Mau hapus data pengajuan " + Namapenduduk + " dengan jenis bansos " + Namabansos +
+                        "?",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
@@ -152,7 +156,7 @@
                 .then((result) => {
                     console.log(result);
                     if (result.value) {
-                        window.location = `{{ url('/jenis_bansos/hapus/') }}/${Id}`;
+                        window.location = `{{ url('/pengajuan/hapus/') }}/${Id}`;
                     }
                 });
         })
