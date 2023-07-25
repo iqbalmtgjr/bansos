@@ -57,7 +57,7 @@ Route::get('/jenis_bansos/hapus/{id}', [JenisbansosController::class, 'destroy']
 // kel_pengajuan
 Route::get('/daftar_pengajuan', [PengajuanController::class, 'index'])->name('daftar-pengajuan');
 Route::get('/pengajuan/lihat/{id}', [PengajuanController::class, 'view'])->name('lihat-pengajuan');
-// Route::post('/pengajuan/input', [PengajuanController::class, 'store'])->name('input-pengajuan');
+Route::get('/changeAcc', [PengajuanController::class, 'acc']);
 // Route::get('/pengajuan/getdata/{id}', [PengajuanController::class, 'getdata']);
 // Route::post('/pengajuan/update', [PengajuanController::class, 'update'])->name('update-pengajuan');
 Route::get('/pengajuan/hapus/{id}', [PengajuanController::class, 'destroy'])->name('hapus-pengajuan');

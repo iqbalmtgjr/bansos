@@ -48,9 +48,10 @@
                             class="form-label @error('role') is-invalid @enderror">Role</label>
                         <select class="form-control" name="role" id="">
                             <option value="">-- Pilih Role --</option>
-                            <option value="rt" @selected(old('role') == 'rt')>RT</option>
-                            <option value="rw" @selected(old('role') == 'rw')>RW</option>
-                            <option value="kel/desa" @selected(old('role') == 'kel/desa')>Kelurahan/Desa</option>
+                            <option value="1" @selected(old('role') == '1')>RT</option>
+                            <option value="2" @selected(old('role') == '2')>RW</option>
+                            <option value="3" @selected(old('role') == '3')>Kelurahan/Desa</option>
+                            <option value="4" @selected(old('role') == '4')>Kecamatan</option>
                         </select>
                         @error('role')
                             <span class="invalid-feedback" role="alert">

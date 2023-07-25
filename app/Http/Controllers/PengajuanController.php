@@ -120,6 +120,10 @@ class PengajuanController extends Controller
                 'foto_kk' => $nama_file_foto_kk,
                 'foto_ktp' => $nama_file_foto_ktp,
                 'foto_diri' => $nama_file_foto_diri,
+                'acc_rt' => '0',
+                'acc_rw' => '0',
+                'acc_desa' => '0',
+                'acc_kecamatan' => '0'
             ]);
 
             // upload foto rmh tampak dpn
@@ -142,6 +146,36 @@ class PengajuanController extends Controller
         }
     }
 
+    public function acc(Request $request)
+    {
+        $data = Pengajuan::find($request->id);
+        if ($request->user == 1) {
+            if ($data->acc_rt == 1) {
+                $data->acc_rt = 0;
+            } else {
+                $data->acc_rt = 1;
+            }
+        } elseif ($request->user == 2) {
+            if ($data->acc_rw == 0) {
+                $data->acc_rw = 1;
+            } else {
+                $data->acc_rw = 0;
+            }
+        } elseif ($request->user == 3) {
+            if ($data->acc_desa == 0) {
+                $data->acc_desa = 1;
+            } else {
+                $data->acc_desa = 0;
+            }
+        } elseif ($request->user == 4) {
+            if ($data->acc_kecamatan == 0) {
+                $data->acc_kecamatan = 1;
+            } else {
+                $data->acc_kecamatan = 0;
+            }
+        }
+        $data->save();
+    }
 
     public function destroy(string $id)
     {

@@ -7,8 +7,6 @@
 @endpush
 
 @section('content')
-    {{-- @include('jenis_bansos/modaltambah') --}}
-    {{-- @include('pengajuan/modalview') --}}
     <div class="row">
         <div class="col-12">
             <div class="card mb-4">
@@ -30,19 +28,27 @@
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Jenis Bansos</th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        ACC RT</th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        ACC RW</th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        ACC Kelurahan/Desa</th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        ACC Kecamatan</th>
-                                    @if (auth()->user()->role == 'admin')
+                                    @if (auth()->user()->role == 1 || auth()->user()->role == 0)
+                                        <th
+                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            ACC RT</th>
+                                    @endif
+                                    @if (auth()->user()->role == 2 || auth()->user()->role == 0)
+                                        <th
+                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            ACC RW</th>
+                                    @endif
+                                    @if (auth()->user()->role == 3 || auth()->user()->role == 0)
+                                        <th
+                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            ACC Kelurahan/Desa</th>
+                                    @endif
+                                    @if (auth()->user()->role == 4 || auth()->user()->role == 0)
+                                        <th
+                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            ACC Kecamatan</th>
+                                    @endif
+                                    @if (auth()->user()->role == 0)
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Aksi</th>
@@ -63,60 +69,131 @@
                                             <p class="text-xs font-weight-bold mb-0">{{ $item->jenisBansos->nama_bansos }}
                                             </p>
                                         </td>
-                                        <td class="align-middle text-center text-sm">
-                                            @if ($item->acc_rt == '1')
+                                        @if (auth()->user()->role == 1 || auth()->user()->role == 0)
+                                            <td class="align-middle text-center text-sm">
+                                                @if (auth()->user()->role == 0)
+                                                    @if ($item->acc_rt)
+                                                        <i class="fas fa-check" style="color: #00ff11;"></i>
+                                                    @else
+                                                        <i class="fas fa-times" style="color: #f01800;"></i>
+                                                    @endif
+                                                @else
+                                                    <div class="form-check form-switch ps-0">
+                                                        <input @if (auth()->user()->role == 0) disabled @endif
+                                                            class="form-check-input mt-1 ms-auto" type="checkbox"
+                                                            id="navbarFixed"
+                                                            onchange="changeAcc({{ $item->id }}, {{ auth()->user()->role }})"
+                                                            {{ $item->acc_rt ? 'checked' : '' }}>
+                                                    </div>
+                                                @endif
+                                                {{-- @if ($item->acc_rt == '1')
                                                 <span class="badge badge-sm bg-gradient-success">Acc</span>
                                             @elseif($item->acc_rt == '0')
                                                 <span class="badge badge-sm bg-gradient-danger">Tidak di Acc</span>
                                             @else
                                                 <span class="badge badge-sm bg-gradient-secondary">Belum Acc</span>
-                                            @endif
-                                        </td>
-                                        <td class="align-middle text-center text-sm">
-                                            @if ($item->acc_rw == '1')
+                                            @endif --}}
+                                            </td>
+                                        @endif
+                                        @if (auth()->user()->role == 2 || auth()->user()->role == 0)
+                                            <td class="align-middle text-center text-sm">
+                                                @if (auth()->user()->role == 0)
+                                                    @if ($item->acc_rw)
+                                                        <i class="fas fa-check" style="color: #00ff11;"></i>
+                                                    @else
+                                                        <i class="fas fa-times" style="color: #f01800;"></i>
+                                                    @endif
+                                                @else
+                                                    <div class="form-check form-switch ps-0">
+                                                        <input @if (auth()->user()->role == 0) disabled @endif
+                                                            class="form-check-input mt-1 ms-auto" type="checkbox"
+                                                            id="navbarFixed"
+                                                            onchange="changeAcc({{ $item->id }}, {{ auth()->user()->role }})"
+                                                            {{ $item->acc_rw ? 'checked' : '' }}>
+                                                    </div>
+                                                @endif
+                                                {{-- @if ($item->acc_rw == '1')
                                                 <span class="badge badge-sm bg-gradient-success">Acc</span>
                                             @elseif($item->acc_rw == '0')
                                                 <span class="badge badge-sm bg-gradient-danger">Tidak di Acc</span>
                                             @else
                                                 <span class="badge badge-sm bg-gradient-secondary">Belum Acc</span>
-                                            @endif
-                                        </td>
-                                        <td class="align-middle text-center text-sm">
-                                            @if ($item->acc_desa == '1')
+                                            @endif --}}
+                                            </td>
+                                        @endif
+                                        @if (auth()->user()->role == 3 || auth()->user()->role == 0)
+                                            <td class="align-middle text-center text-sm">
+                                                @if (auth()->user()->role == 0)
+                                                    @if ($item->acc_desa)
+                                                        <i class="fas fa-check" style="color: #00ff11;"></i>
+                                                    @else
+                                                        <i class="fas fa-times" style="color: #f01800;"></i>
+                                                    @endif
+                                                @else
+                                                    <div class="form-check form-switch ps-0">
+                                                        <input @if (auth()->user()->role == 0) disabled @endif
+                                                            class="form-check-input mt-1 ms-auto" type="checkbox"
+                                                            id="navbarFixed"
+                                                            onchange="changeAcc({{ $item->id }}, {{ auth()->user()->role }})"
+                                                            {{ $item->acc_desa ? 'checked' : '' }}>
+                                                    </div>
+                                                @endif
+                                                {{-- @if ($item->acc_desa == '1')
                                                 <span class="badge badge-sm bg-gradient-success">Acc</span>
                                             @elseif($item->acc_desa == '0')
                                                 <span class="badge badge-sm bg-gradient-danger">Tidak di Acc</span>
                                             @else
                                                 <span class="badge badge-sm bg-gradient-secondary">Belum Acc</span>
-                                            @endif
-                                        </td>
-                                        <td class="align-middle text-center text-sm">
-                                            @if ($item->acc_kecamatan == '1')
+                                            @endif --}}
+                                            </td>
+                                        @endif
+                                        @if (auth()->user()->role == 4 || auth()->user()->role == 0)
+                                            <td class="align-middle text-center text-sm">
+                                                @if (auth()->user()->role == 0)
+                                                    @if ($item->acc_kecamatan)
+                                                        <i class="fas fa-check" style="color: #00ff11;"></i>
+                                                    @else
+                                                        <i class="fas fa-times" style="color: #f01800;"></i>
+                                                    @endif
+                                                @else
+                                                    <div class="form-check form-switch ps-0">
+                                                        <input @if (auth()->user()->role == 0) disabled @endif
+                                                            class="form-check-input mt-1 ms-auto" type="checkbox"
+                                                            id="navbarFixed"
+                                                            onchange="changeAcc({{ $item->id }}, {{ auth()->user()->role }})"
+                                                            {{ $item->acc_kecamatan ? 'checked' : '' }}>
+                                                    </div>
+                                                @endif
+                                                {{-- @if ($item->acc_kecamatan == '1')
                                                 <span class="badge badge-sm bg-gradient-success">Acc</span>
                                             @elseif($item->acc_kecamatan == '0')
                                                 <span class="badge badge-sm bg-gradient-danger">Tidak di Acc</span>
                                             @else
                                                 <span class="badge badge-sm bg-gradient-secondary">Belum Acc</span>
-                                            @endif
-                                        </td>
-                                        @if (auth()->user()->role == 'admin')
+                                            @endif --}}
+                                            </td>
+                                        @endif
+                                        @if (auth()->user()->role == '0')
                                             <td class="align-middle text-center text-sm">
 
                                                 <a href="{{ url('pengajuan/lihat/' . $item->id) }}"
-                                                    class="font-weight-bold text-xs btn btn-success btn-sm"
-                                                    data-toggle="tooltip" data-original-title="Lihat Data Pengajuan">
-                                                    Lihat Data
+                                                    class="font-weight-bold text-md btn btn-success btn-xs"
+                                                    data-toggle="tooltip" title="Lihat Data Pengajuan"><i
+                                                        class="fas fa-solid fa-eye"></i>
+                                                    {{-- Lihat Data --}}
                                                 </a>
-                                                <a href="#"
-                                                    class="font-weight-bold text-xs btn btn-warning btn-sm">Kirim
-                                                    SMS</a>
+                                                <a href="#" class="font-weight-bold text-md btn btn-warning btn-xs"
+                                                    title="Sms Penduduk"><i class="fas fa-sms"></i>
+                                                    {{-- Kirim SMS --}}
+                                                </a>
                                                 <a href="javascript:;"
-                                                    class="font-weight-bold text-xs btn btn-danger btn-sm delete"
+                                                    class="font-weight-bold text-md btn btn-danger btn-xs delete"
                                                     data-id="{{ $item->id }}"
                                                     data-namapen="{{ $item->penduduk->nama_penduduk }}"
                                                     data-nama="{{ $item->jenisbansos->nama_bansos }}" data-toggle="tooltip"
-                                                    data-original-title="Hapus Pengajuan">
-                                                    Hapus
+                                                    title="Hapus Pengajuan">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                    {{-- Hapus --}}
                                                 </a>
                                             </td>
                                         @endif
@@ -160,5 +237,29 @@
                     }
                 });
         })
+
+        function changeAcc(id, user) {
+            // alert(id);
+            // console.log(id);
+            // console.log(user);
+            // var pengajuan_id = {{ auth()->user()->role }}
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: '/changeAcc',
+                data: {
+                    'user': user,
+                    'id': id
+                },
+                success: function(result) {
+                    console.log('asjkhas');
+                    if (result) {
+                        toastr.success("Toko Buka Hari ini", "Yeeeeyyy!!!");
+                    } else {
+                        toastr.warning("Toko Tutup Hari ini", "Istirahat!!!");
+                    }
+                }
+            });
+        }
     </script>
 @endpush
