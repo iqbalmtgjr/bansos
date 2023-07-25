@@ -44,8 +44,12 @@
                                         <td class="align-middle">
                                             <p class="text-xs font-weight-bold mb-0">{{ $item->nama_bansos }}</p>
                                         </td>
-                                        <td class="align-middle text-center">
-                                            <p class="text-xs font-weight-bold mb-0">{{ $item->status }}</p>
+                                        <td class="align-middle text-center text-sm">
+                                            @if ($item->status == '1')
+                                                <span class="badge badge-sm bg-gradient-success">Aktif</span>
+                                            @else
+                                                <span class="badge badge-sm bg-gradient-secondary">Tidak Aktif</span>
+                                            @endif
                                         </td>
                                         <td class="align-middle text-center">
                                             <a href="javascript:;" onclick="getdata({{ $item->id }})"

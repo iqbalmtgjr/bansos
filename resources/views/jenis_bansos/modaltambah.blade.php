@@ -23,8 +23,11 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Status Bansos</label>
-                        <input name="status" type="number" class="form-control @error('status') is-invalid @enderror"
-                            value="{{ old('status') }}" placeholder="Masukkan status">
+                        <select name="status" class="form-control @error('status') is-invalid @enderror">
+                            <option value="">-- Pilih Status --</option>
+                            <option value="1" @selected(old('status') == '1')>Aktif</option>
+                            <option value="0" @selected(old('status') == '0')>Tidak Aktif</option>
+                        </select>
                         @error('status')
                             <span class="invalid-feedback" role="alert">
                                 <div id="emailHelp" class="form-text text-danger">{{ $message }}

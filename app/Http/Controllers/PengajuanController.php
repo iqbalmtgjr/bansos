@@ -46,7 +46,7 @@ class PengajuanController extends Controller
     public function formPengajuan($data)
     {
         $get_id = $data;
-        $jenis_bansos = Jenisbansos::all();
+        $jenis_bansos = Jenisbansos::where('status', '1')->get();
 
         return view('pengajuan.form_pengajuan_bansos', compact('get_id', 'jenis_bansos'));
     }
