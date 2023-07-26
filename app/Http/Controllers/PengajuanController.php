@@ -8,12 +8,33 @@ use App\Models\Pengajuan;
 use App\Models\Jenisbansos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Notifications\SmsNotification;
+use App\Notifications\SmsNotificationGagal;
 
 class PengajuanController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    public function notifterima($id)
+    {
+        $data = Penduduk::find($id);
+        $data->notify(new SmsNotification);
+
+        // dd($data);
+        toastr()->success('Sms notifikasi telah dikirim.', 'Sukses');
+        return redirect('/daftar_pengajuan');
+    }
+
+    public function notiftolak($id)
+    {
+        $data = Penduduk::find($id);
+        $data->notify(new SmsNotificationGagal);
+
+        toastr()->success('Sms notifikasi telah dikirim.', 'Sukses');
+        return redirect('/daftar_pengajuan');
+    }
+
     public function index()
     {
         $data = Pengajuan::all();

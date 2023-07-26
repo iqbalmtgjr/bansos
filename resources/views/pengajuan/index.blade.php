@@ -177,13 +177,19 @@
                                             <td class="align-middle text-center text-sm">
 
                                                 <a href="{{ url('pengajuan/lihat/' . $item->id) }}"
-                                                    class="font-weight-bold text-md btn btn-success btn-xs"
+                                                    class="font-weight-bold text-md btn btn-info btn-xs"
                                                     data-toggle="tooltip" title="Lihat Data Pengajuan"><i
                                                         class="fas fa-solid fa-eye"></i>
                                                     {{-- Lihat Data --}}
                                                 </a>
-                                                <a href="#" class="font-weight-bold text-md btn btn-warning btn-xs"
-                                                    title="Sms Penduduk"><i class="fas fa-sms"></i>
+                                                <a href="{{ url('notif/' . $item->penduduk_id) }}"
+                                                    class="font-weight-bold text-md btn btn-success btn-xs"
+                                                    title="Sms Penduduk Diterima"><i class="fas fa-sms"></i>
+                                                    {{-- Kirim SMS --}}
+                                                </a>
+                                                <a href="{{ url('notifgagal/' . $item->penduduk_id) }}"
+                                                    class="font-weight-bold text-md btn btn-warning btn-xs"
+                                                    title="Sms Penduduk Ditolak"><i class="fas fa-sms"></i>
                                                     {{-- Kirim SMS --}}
                                                 </a>
                                                 <a href="javascript:;"
