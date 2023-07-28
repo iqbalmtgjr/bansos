@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string('no_hp');
             $table->string('penghasilan');
             $table->string('tanggungan');
+            $table->integer('cacat');
             $table->timestamps();
         });
     }

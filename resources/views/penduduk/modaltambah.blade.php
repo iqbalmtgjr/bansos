@@ -237,7 +237,8 @@
                             <div class="mb-3">
                                 <label class="form-label">No Handphone</label>
                                 <div class="input-group">
-                                    <span class="input-group-text" id="basic-addon1">+62</span>
+                                    <span class="input-group-text @error('no_hp') is-invalid @enderror"
+                                        id="basic-addon1">+62</span>
                                     <input name="no_hp" type="number"
                                         class="form-control @error('no_hp') is-invalid @enderror"
                                         placeholder="8xxxxxxxxx" value="{{ old('no_hp') }}" aria-label="no_hp"
@@ -273,6 +274,23 @@
                                     class="form-control @error('tanggungan') is-invalid @enderror"
                                     value="{{ old('tanggungan') }}" placeholder="Masukkan Jumlah Tanggungan">
                                 @error('tanggungan')
+                                    <span class="invalid-feedback" role="alert">
+                                        <div id="emailHelp" class="form-text text-danger">{{ $message }}
+                                        </div>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Cacat Fisik</label>
+                                <select class="form-control @error('cacat') is-invalid @enderror" name="cacat"
+                                    id="">
+                                    <option value="">-- Cacat atau Tidak --</option>
+                                    <option value="1" @selected(old('cacat') == '1')>
+                                        Cacat</option>
+                                    <option value="0" @selected(old('cacat') == '0')>
+                                        Tidak Cacat</option>
+                                </select>
+                                @error('cacat')
                                     <span class="invalid-feedback" role="alert">
                                         <div id="emailHelp" class="form-text text-danger">{{ $message }}
                                         </div>

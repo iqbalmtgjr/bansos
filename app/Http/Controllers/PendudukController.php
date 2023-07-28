@@ -46,7 +46,7 @@ class PendudukController extends Controller
             'status_kawin' => 'required',
             'pekerjaan' => 'required',
             'kewarganegaraan' => 'required',
-            'no_hp' => 'required',
+            'no_hp' => 'required|unique:penduduk',
             'penghasilan' => 'required',
             'tanggungan' => 'required',
         ]);
@@ -59,26 +59,26 @@ class PendudukController extends Controller
                 ->withInput();
         }
 
-        // $create = Penduduk::create($request->all());
-        $create = Penduduk::create([
-            'nik' => $request->nik,
-            'no_kk' => $request->no_kk,
-            'nama_penduduk' => $request->nama_penduduk,
-            'jenis_kelamin' => $request->jenis_kelamin,
-            'agama' => $request->agama,
-            'rt' => $request->rt,
-            'rw' => $request->rw,
-            'kel_desa' => $request->kel_desa,
-            'kecamatan' => $request->kecamatan,
-            'kabupaten' => $request->kabupaten,
-            'provinsi' => $request->provinsi,
-            'status_kawin' => $request->status_kawin,
-            'pekerjaan' => $request->pekerjaan,
-            'kewarganegaraan' => $request->kewarganegaraan,
-            'no_hp' => $request->no_hp,
-            'penghasilan' => $request->penghasilan,
-            'tanggungan' => $request->tanggungan,
-        ]);
+        $create = Penduduk::create($request->all());
+        // $create = Penduduk::create([
+        //     'nik' => $request->nik,
+        //     'no_kk' => $request->no_kk,
+        //     'nama_penduduk' => $request->nama_penduduk,
+        //     'jenis_kelamin' => $request->jenis_kelamin,
+        //     'agama' => $request->agama,
+        //     'rt' => $request->rt,
+        //     'rw' => $request->rw,
+        //     'kel_desa' => $request->kel_desa,
+        //     'kecamatan' => $request->kecamatan,
+        //     'kabupaten' => $request->kabupaten,
+        //     'provinsi' => $request->provinsi,
+        //     'status_kawin' => $request->status_kawin,
+        //     'pekerjaan' => $request->pekerjaan,
+        //     'kewarganegaraan' => $request->kewarganegaraan,
+        //     'no_hp' => $request->no_hp,
+        //     'penghasilan' => $request->penghasilan,
+        //     'tanggungan' => $request->tanggungan,
+        // ]);
 
         toastr()->success('Data user berhasil ditambahkan.', 'Sukses');
         return redirect()->back();
@@ -117,25 +117,26 @@ class PendudukController extends Controller
                 ->withInput();
         }
         $fuser = Penduduk::find($request->id);
-        $fuser->update([
-            'nik' => $request->nik,
-            'no_kk' => $request->no_kk,
-            'nama_penduduk' => $request->nama_penduduk,
-            'jenis_kelamin' => $request->jenis_kelamin,
-            'agama' => $request->agama,
-            'rt' => $request->rt,
-            'rw' => $request->rw,
-            'kel_desa' => $request->kel_desa,
-            'kecamatan' => $request->kecamatan,
-            'kabupaten' => $request->kabupaten,
-            'provinsi' => $request->provinsi,
-            'status_kawin' => $request->status_kawin,
-            'pekerjaan' => $request->pekerjaan,
-            'kewarganegaraan' => $request->kewarganegaraan,
-            'no_hp' => '+62' . $request->no_hp,
-            'penghasilan' => $request->penghasilan,
-            'tanggungan' => $request->tanggungan,
-        ]);
+        $fuser->update($request->all());
+        // $fuser->update([
+        //     'nik' => $request->nik,
+        //     'no_kk' => $request->no_kk,
+        //     'nama_penduduk' => $request->nama_penduduk,
+        //     'jenis_kelamin' => $request->jenis_kelamin,
+        //     'agama' => $request->agama,
+        //     'rt' => $request->rt,
+        //     'rw' => $request->rw,
+        //     'kel_desa' => $request->kel_desa,
+        //     'kecamatan' => $request->kecamatan,
+        //     'kabupaten' => $request->kabupaten,
+        //     'provinsi' => $request->provinsi,
+        //     'status_kawin' => $request->status_kawin,
+        //     'pekerjaan' => $request->pekerjaan,
+        //     'kewarganegaraan' => $request->kewarganegaraan,
+        //     'no_hp' => $request->no_hp,
+        //     'penghasilan' => $request->penghasilan,
+        //     'tanggungan' => $request->tanggungan,
+        // ]);
 
         toastr()->success('Data user berhasil diubah.', 'Sukses');
         return redirect()->back();

@@ -48,11 +48,10 @@
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             ACC Kecamatan</th>
                                     @endif
-                                    @if (auth()->user()->role == 0)
-                                        <th
-                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Aksi</th>
-                                    @endif
+
+                                    <th
+                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -173,15 +172,13 @@
                                             @endif --}}
                                             </td>
                                         @endif
-                                        @if (auth()->user()->role == '0')
-                                            <td class="align-middle text-center text-sm">
-
-                                                <a href="{{ url('pengajuan/lihat/' . $item->id) }}"
-                                                    class="font-weight-bold text-md btn btn-info btn-xs"
-                                                    data-toggle="tooltip" title="Lihat Data Pengajuan"><i
-                                                        class="fas fa-solid fa-eye"></i>
-                                                    {{-- Lihat Data --}}
-                                                </a>
+                                        <td class="align-middle text-center text-sm">
+                                            <a href="{{ url('pengajuan/lihat/' . $item->id) }}"
+                                                class="font-weight-bold text-md btn btn-info btn-xs" data-toggle="tooltip"
+                                                title="Lihat Data Pengajuan"><i class="fas fa-solid fa-eye"></i>
+                                                {{-- Lihat Data --}}
+                                            </a>
+                                            @if (auth()->user()->role == '0')
                                                 <a href="{{ url('notif/' . $item->penduduk_id) }}"
                                                     class="font-weight-bold text-md btn btn-success btn-xs"
                                                     title="Sms Penduduk Diterima"><i class="fas fa-sms"></i>
@@ -201,8 +198,8 @@
                                                     <i class="fas fa-trash-alt"></i>
                                                     {{-- Hapus --}}
                                                 </a>
-                                            </td>
-                                        @endif
+                                            @endif
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

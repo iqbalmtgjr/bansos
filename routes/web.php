@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\JenisbansosController;
+use App\Http\Controllers\LaporanController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -61,3 +62,6 @@ Route::get('/changeAcc', [PengajuanController::class, 'acc']);
 Route::get('/pengajuan/hapus/{id}', [PengajuanController::class, 'destroy'])->name('hapus-pengajuan');
 Route::get('/notif/{id}', [PengajuanController::class, 'notifterima']);
 Route::get('/notifgagal/{id}', [PengajuanController::class, 'notiftolak']);
+
+// Laporan
+Route::get('/laporan', [LaporanController::class, 'index']);

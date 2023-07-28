@@ -283,6 +283,23 @@
                                     </span>
                                 @enderror
                             </div>
+                            <div class="mb-3">
+                                <label class="form-label">Cacat Fisik</label>
+                                <select class="form-control @error('cacat') is-invalid @enderror" name="cacat"
+                                    id="cacat">
+                                    <option value="">-- Cacat atau Tidak --</option>
+                                    <option value="1" @selected(old('cacat') == '1')>
+                                        Cacat</option>
+                                    <option value="0" @selected(old('cacat') == '0')>
+                                        Tidak Cacat</option>
+                                </select>
+                                @error('cacat')
+                                    <span class="invalid-feedback" role="alert">
+                                        <div id="emailHelp" class="form-text text-danger">{{ $message }}
+                                        </div>
+                                    </span>
+                                @enderror
+                            </div>
                         </div>
                     </div>
             </div>
@@ -325,6 +342,7 @@
                     $('#penghasilan').val(response.penghasilan);
                     $('#tanggungan').val(response.tanggungan);
                     $('#kel_desa').val(response.kel_desa);
+                    $('#cacat').val(response.cacat);
                 }
             });
         }

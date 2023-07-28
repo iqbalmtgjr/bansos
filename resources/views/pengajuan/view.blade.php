@@ -111,10 +111,14 @@
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="row p-4">
-                        <div class="mb-3">
+                        <div class="mb-3 col-md-6">
                             <label for="">Jenis Bansos</label>
                             <input class="form-control" type="text" disabled
                                 value="{{ $data->jenisbansos->nama_bansos }}">
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label for="">Cacat Fisik</label>
+                            <input class="form-control" type="text" disabled value="{{ $data->penduduk->cacat }}">
                         </div>
                     </div>
                     <div class="row p-4">
