@@ -75,7 +75,7 @@ class PendudukController extends Controller
             'status_kawin' => $request->status_kawin,
             'pekerjaan' => $request->pekerjaan,
             'kewarganegaraan' => $request->kewarganegaraan,
-            'no_hp' => '+62' . $request->no_hp,
+            'no_hp' => $request->no_hp,
             'penghasilan' => $request->penghasilan,
             'tanggungan' => $request->tanggungan,
         ]);

@@ -16,7 +16,7 @@ class Penduduk extends Model
 
     public function routeNotificationForVonage(Notification $notification): string
     {
-        return $this->no_hp;
+        return "+62".$this->no_hp;
     }
 
     public function pengajuan()

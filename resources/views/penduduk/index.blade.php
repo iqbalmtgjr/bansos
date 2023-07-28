@@ -50,7 +50,7 @@
                                             <p class="text-xs font-weight-bold mb-0">{{ $item->nama_penduduk }}</p>
                                         </td>
                                         <td class="align-middle text-center">
-                                            <p class="text-xs font-weight-bold mb-0">{{ $item->no_hp }}</p>
+                                            <p class="text-xs font-weight-bold mb-0">+62{{ $item->no_hp }}</p>
                                         </td>
                                         <td class="align-middle text-center">
                                             <a href="javascript:;" onclick="getdata({{ $item->id }})"

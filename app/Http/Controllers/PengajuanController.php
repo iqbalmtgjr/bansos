@@ -6,6 +6,7 @@ use App\Models\Detailrumah;
 use App\Models\Penduduk;
 use App\Models\Pengajuan;
 use App\Models\Jenisbansos;
+use App\Models\Riwayatbansos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Notifications\SmsNotification;
@@ -20,8 +21,21 @@ class PengajuanController extends Controller
     {
         $data = Penduduk::find($id);
         $data->notify(new SmsNotification);
+        
+        $pengajuan = Pengajuan::where('penduduk_id', $id)->first();
+        
+        $pengajuan->update([
+            'status_sms' => 1
+        ]);
+        
+        // dd($pengajuan->status_sms);
+        $riwayat = Riwayatbansos::create([
+            'user_id' => Auth()->user()->id,
+            'penduduk_id' => $data->id,
+            'status_penerimaan' => $pengajuan->status_sms,
+            'catatan' => 'ini catatan'
+        ]);
 
-        // dd($data);
         toastr()->success('Sms notifikasi telah dikirim.', 'Sukses');
         return redirect('/daftar_pengajuan');
     }

@@ -237,16 +237,16 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">No Handphone</label>
-                                {{-- <div class="input-group">
+                                <div class="input-group">
                                     <span class="input-group-text" id="basic-addon1">+62</span>
                                     <input name="no_hp" id="no_hp" type="number"
                                         class="form-control @error('no_hp') is-invalid @enderror"
                                         placeholder="8xxxxxxxxx" value="{{ old('no_hp') }}" aria-label="no_hp"
                                         aria-describedby="basic-addon1">
-                                </div> --}}
-                                <input name="no_hp" id="no_hp" type="text"
+                                </div>
+                                {{-- <input name="no_hp" id="no_hp" type="text"
                                     class="form-control @error('no_hp') is-invalid @enderror"
-                                    value="{{ old('no_hp') }}" placeholder="Masukkan No HP">
+                                    value="{{ old('no_hp') }}" placeholder="Masukkan No HP"> --}}
                                 @error('no_hp')
                                     <span class="invalid-feedback" role="alert">
                                         <div id="emailHelp" class="form-text text-danger">{{ $message }}

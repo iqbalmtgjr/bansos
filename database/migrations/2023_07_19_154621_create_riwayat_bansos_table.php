@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('penduduk_id');
+            $table->integer('status_penerimaan');
             $table->string('catatan');
             $table->timestamps();
         });
