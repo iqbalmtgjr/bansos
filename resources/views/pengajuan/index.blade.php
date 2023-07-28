@@ -51,6 +51,9 @@
 
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Status</th>
+                                    <th
+                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Aksi</th>
                                 </tr>
                             </thead>
@@ -65,7 +68,7 @@
                                             </p>
                                         </td>
                                         <td class="align-middle text-center">
-                                            <p class="text-xs font-weight-bold mb-0">{{ $item->jenisBansos->nama_bansos }}
+                                            <p class="text-xs font-weight-bold mb-0">{{ $item->jenisbansos->nama_bansos }}
                                             </p>
                                         </td>
                                         @if (auth()->user()->role == 1 || auth()->user()->role == 0)
@@ -173,18 +176,25 @@
                                             </td>
                                         @endif
                                         <td class="align-middle text-center text-sm">
+                                            @if ($item->status_sms == 1)
+                                                <span class="badge badge-sm bg-gradient-success">Sudah Dikirim</span>
+                                            @else
+                                                <span class="badge badge-sm bg-gradient-warning">Belum Dikirim</span>
+                                            @endif
+                                        </td>
+                                        <td class="align-middle text-center text-sm">
                                             <a href="{{ url('pengajuan/lihat/' . $item->id) }}"
                                                 class="font-weight-bold text-md btn btn-info btn-xs" data-toggle="tooltip"
                                                 title="Lihat Data Pengajuan"><i class="fas fa-solid fa-eye"></i>
                                                 {{-- Lihat Data --}}
                                             </a>
                                             @if (auth()->user()->role == '0')
-                                                <a href="{{ url('notif/' . $item->penduduk_id) }}"
+                                                <a href="{{ url('notif/' . $item->id) }}"
                                                     class="font-weight-bold text-md btn btn-success btn-xs"
                                                     title="Sms Penduduk Diterima"><i class="fas fa-sms"></i>
                                                     {{-- Kirim SMS --}}
                                                 </a>
-                                                <a href="{{ url('notifgagal/' . $item->penduduk_id) }}"
+                                                <a href="{{ url('notifgagal/' . $item->id) }}"
                                                     class="font-weight-bold text-md btn btn-warning btn-xs"
                                                     title="Sms Penduduk Ditolak"><i class="fas fa-sms"></i>
                                                     {{-- Kirim SMS --}}

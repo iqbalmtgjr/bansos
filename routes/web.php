@@ -65,3 +65,4 @@ Route::get('/notifgagal/{id}', [PengajuanController::class, 'notiftolak']);
 
 // Laporan
 Route::get('/laporan', [LaporanController::class, 'index']);
+Route::get('/laporan/hapus/{id}', [LaporanController::class, 'destroy']);

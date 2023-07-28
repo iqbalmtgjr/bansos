@@ -49,6 +49,7 @@ class PendudukController extends Controller
             'no_hp' => 'required|unique:penduduk',
             'penghasilan' => 'required',
             'tanggungan' => 'required',
+            'cacat' => 'required',
         ]);
 
         if ($validator->fails()) {

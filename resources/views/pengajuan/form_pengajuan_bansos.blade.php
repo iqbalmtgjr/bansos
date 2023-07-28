@@ -101,8 +101,7 @@
                                                     name="jenis_bansos_id">
                                                     <option value="">-- Pilih Jenis Bansos --</option>
                                                     @foreach ($jenis_bansos as $item)
-                                                        <option value="{{ $item->id }}"
-                                                            @selected(old('jenis_bansos_id') == '{{ $item->nama_bansos }}')>
+                                                        <option value="{{ $item->id }}" @selected(old('jenis_bansos_id') == '{{ $item->id }}')>
                                                             {{ $item->nama_bansos }}
                                                         </option>
                                                     @endforeach

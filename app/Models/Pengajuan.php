@@ -21,8 +21,13 @@ class Pengajuan extends Model
         return $this->hasOne(Detailrumah::class);
     }
 
-    public function jenisBansos()
+    public function jenisbansos()
     {
-        return $this->belongsTo(Jenisbansos::class);
+        return $this->belongsTo(Jenisbansos::class, 'jenis_bansos_id');
+    }
+
+    public function riwayatbansos()
+    {
+        return $this->hasOne(Riwayatbansos::class);
     }
 }

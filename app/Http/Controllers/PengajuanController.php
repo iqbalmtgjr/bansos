@@ -19,19 +19,27 @@ class PengajuanController extends Controller
      */
     public function notifterima($id)
     {
-        $data = Penduduk::find($id);
-        $data->notify(new SmsNotification);
-
-        $pengajuan = Pengajuan::where('penduduk_id', $id)->first();
-
+        $pengajuan = Pengajuan::find($id);
         $pengajuan->update([
             'status_sms' => 1
         ]);
+        
+        $penduduk_id = $pengajuan->penduduk->id;
+        // dd($penduduk_id);
+        $riwayatbansos = Riwayatbansos::where('penduduk_id', $penduduk_id)->where('status_penerimaan', 1)->get()->count();
+
+        if ($riwayatbansos > 0) {
+            toastr()->warning('Pengajuan ini sudah ada di fitur laporan.', 'Peringatan');
+            return redirect('/daftar_pengajuan');
+        }
+        $data = Penduduk::find($penduduk_id);
+        $data->notify(new SmsNotification);
 
         $riwayat = Riwayatbansos::create([
             'user_id' => Auth()->user()->id,
-            'penduduk_id' => $data->id,
-            'status_penerimaan' => $pengajuan->status_sms,
+            'penduduk_id' => $penduduk_id,
+            'pengajuan_bansos_id' => $pengajuan->id,
+            'status_penerimaan' => 1,
             'catatan' => 'ini catatan'
         ]);
 
@@ -41,19 +49,27 @@ class PengajuanController extends Controller
 
     public function notiftolak($id)
     {
-        $data = Penduduk::find($id);
-        $data->notify(new SmsNotificationGagal);
-
-        $pengajuan = Pengajuan::where('penduduk_id', $id)->first();
-
+        $pengajuan = Pengajuan::find($id);
         $pengajuan->update([
             'status_sms' => 1
         ]);
+        
+        $penduduk_id = $pengajuan->penduduk->id;
+        // dd($penduduk_id);
+        $riwayatbansos = Riwayatbansos::where('penduduk_id', $penduduk_id)->where('status_penerimaan', 0)->get()->count();
+
+        if ($riwayatbansos > 0) {
+            toastr()->warning('Pengajuan ini sudah ada di fitur laporan.', 'Peringatan');
+            return redirect('/daftar_pengajuan');
+        }
+        $data = Penduduk::find($penduduk_id);
+        $data->notify(new SmsNotificationGagal);
 
         $riwayat = Riwayatbansos::create([
             'user_id' => Auth()->user()->id,
-            'penduduk_id' => $data->id,
-            'status_penerimaan' => $pengajuan->status_sms,
+            'penduduk_id' => $penduduk_id,
+            'pengajuan_bansos_id' => $pengajuan->id,
+            'status_penerimaan' => 0,
             'catatan' => 'ini catatan'
         ]);
 

@@ -85,7 +85,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="">No HP</label>
-                                <input class="form-control" type="text" disabled value="{{ $data->penduduk->no_hp }}">
+                                <input class="form-control" type="text" disabled value="+62{{ $data->penduduk->no_hp }}">
                             </div>
                             <div class="mb-3">
                                 <label for="">Penghasilan</label>
@@ -118,7 +118,11 @@
                         </div>
                         <div class="mb-3 col-md-6">
                             <label for="">Cacat Fisik</label>
-                            <input class="form-control" type="text" disabled value="{{ $data->penduduk->cacat }}">
+                            @if ($data->penduduk->cacat == 0)
+                                <input class="form-control" type="text" disabled value="Tidak Cacat">
+                            @else
+                                <input class="form-control" type="text" disabled value="Cacat">
+                            @endif
                         </div>
                     </div>
                     <div class="row p-4">
