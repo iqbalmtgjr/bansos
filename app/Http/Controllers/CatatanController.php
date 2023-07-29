@@ -22,13 +22,19 @@ class CatatanController extends Controller
                 ->withInput();
         }
 
-        Catatan::create([
-            'user_id' => auth()->user()->id,
-            'pengajuan_bansos_id' => $request->pengajuan_bansos_id,
-            'catatan' => $request->catatan,
-        ]);
+        if (empty(Catatan::where('user_id', auth()->user()->id)->where('pengajuan_bansos_id', $request->pengajuan_bansos_id)->first())) {
+            Catatan::create([
+                'user_id' => auth()->user()->id,
+                'role' => auth()->user()->role,
+                'pengajuan_bansos_id' => $request->pengajuan_bansos_id,
+                'catatan' => $request->catatan,
+            ]);
 
-        toastr()->success('Catatan berhasil ditambahkan.', 'Sukses');
-        return redirect()->back();
+            toastr()->success('Catatan berhasil ditambahkan.', 'Sukses');
+            return redirect()->back();
+        } else {
+            toastr()->warning('Catatan dengan pengajuan ini sudah pernah ditambahkan.', 'Peringatan');
+            return redirect()->back();
+        }
     }
 }

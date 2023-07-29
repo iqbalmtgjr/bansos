@@ -5,6 +5,7 @@
 @endpush
 
 @section('content')
+    @include('laporan.modallihat')
     <div class="row">
         <div class="col-12">
             <div class="card mb-4">
@@ -43,9 +44,6 @@
                                         Jenis Bansos</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Catatan</th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Status Penerimaan</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -73,9 +71,6 @@
                                             <p class="text-xs font-weight-bold mb-0">
                                                 {{ $item->pengajuanbansos->jenisbansos->nama_bansos }}</p>
                                         </td>
-                                        <td class="align-middle text-center text-sm">
-                                            {{ $item->pengajuanbansos->catatan->catatan }}
-                                        </td>
                                         <td class="align-middle text-center">
                                             @if ($item->status_penerimaan == 1)
                                                 <span class="badge badge-sm bg-gradient-success">Diterima</span>
@@ -84,11 +79,22 @@
                                             @endif
                                         </td>
                                         <td class="align-middle text-center">
+                                            <a href="{{ url('/laporan/lihat') . '/' . $item->pengajuan_bansos_id }}"
+                                                class="font-weight-bold text-xs btn btn-info btn-sm" data-toggle="tooltip"
+                                                data-original-title="Lihat catatan dari role">
+                                                Lihat Catatan
+                                            </a>
+                                            {{-- <a href="javascript:;" onclick="getdata({{ $item->pengajuan_bansos_id }})"
+                                                class="font-weight-bold text-xs btn btn-info btn-sm" data-toggle="tooltip"
+                                                data-original-title="Lihat catatan dari role" data-bs-toggle="modal"
+                                                data-bs-target="#lihat">
+                                                Lihat Catatan
+                                            </a> --}}
                                             <a href="javascript:;"
                                                 class="font-weight-bold text-xs btn btn-danger btn-sm delete"
                                                 data-id="{{ $item->id }}"
                                                 data-nama="{{ $item->penduduk->nama_penduduk }}" data-toggle="tooltip"
-                                                data-original-title="Hapus Jenis Bansos">
+                                                data-original-title="Hapus Riwayat Bansos">
                                                 Hapus
                                             </a>
                                         </td>

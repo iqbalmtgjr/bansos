@@ -32,6 +32,8 @@ Route::get('/form_pengajuan/{id}', [PengajuanController::class, 'formPengajuan']
 Route::post('/pengajuan/input', [PengajuanController::class, 'store']);
 
 Auth::routes();
+Auth::routes(['register' => false]);
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -71,3 +73,5 @@ Route::post('/catatan/tambah', [CatatanController::class, 'storecatatan']);
 // Laporan
 Route::get('/laporan', [LaporanController::class, 'index']);
 Route::get('/laporan/hapus/{id}', [LaporanController::class, 'destroy']);
+Route::get('/getdata/catatan/{id}', [LaporanController::class, 'getdata']);
+Route::get('/laporan/lihat/{id}', [LaporanController::class, 'view']);

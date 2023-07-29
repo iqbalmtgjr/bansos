@@ -34,6 +34,9 @@
                                         Email</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Role</th>
+                                    <th
+                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Aksi</th>
                                 </tr>
                             </thead>
@@ -52,6 +55,17 @@
                                         </td>
                                         <td class="align-middle text-center">
                                             <p class="text-xs font-weight-bold mb-0">{{ $item->email }}</p>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            @if ($item->role == 1)
+                                                <p class="text-xs font-weight-bold mb-0">RT</p>
+                                            @elseif($item->role == 2)
+                                                <p class="text-xs font-weight-bold mb-0">RW</p>
+                                            @elseif($item->role == 3)
+                                                <p class="text-xs font-weight-bold mb-0">Kelurahan/Desa</p>
+                                            @else
+                                                <p class="text-xs font-weight-bold mb-0">Kecamatan</p>
+                                            @endif
                                         </td>
                                         <td class="align-middle text-center">
                                             <a href="javascript:;" onclick="getdata({{ $item->id }})"

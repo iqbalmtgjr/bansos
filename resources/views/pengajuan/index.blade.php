@@ -50,9 +50,11 @@
                                             ACC Kecamatan</th>
                                     @endif
 
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Status</th>
+                                    @if (auth()->user()->role == 0)
+                                        <th
+                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Status</th>
+                                    @endif
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Aksi</th>
@@ -176,13 +178,15 @@
                                             @endif --}}
                                             </td>
                                         @endif
-                                        <td class="align-middle text-center text-sm">
-                                            @if ($item->status_sms == 1)
-                                                <span class="badge badge-sm bg-gradient-success">Sudah Dikirim</span>
-                                            @else
-                                                <span class="badge badge-sm bg-gradient-warning">Belum Dikirim</span>
-                                            @endif
-                                        </td>
+                                        @if (auth()->user()->role == 0)
+                                            <td class="align-middle text-center text-sm">
+                                                @if ($item->status_sms == 1)
+                                                    <span class="badge badge-sm bg-gradient-success">Sudah Dikirim</span>
+                                                @else
+                                                    <span class="badge badge-sm bg-gradient-warning">Belum Dikirim</span>
+                                                @endif
+                                            </td>
+                                        @endif
                                         <td class="align-middle text-center text-sm">
                                             @if (auth()->user()->role != '0')
                                                 <a href="javascript:;"

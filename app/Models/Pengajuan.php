@@ -28,7 +28,7 @@ class Pengajuan extends Model
 
     public function riwayatbansos()
     {
-        return $this->hasOne(Riwayatbansos::class);
+        return $this->hasOne(Riwayatbansos::class, 'id');
     }
 
     public function catatan()

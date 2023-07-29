@@ -36,7 +36,7 @@ class PengajuanController extends Controller
             return redirect('/daftar_pengajuan');
         }
         $data = Penduduk::find($penduduk_id);
-        // $data->notify(new SmsNotification);
+        $data->notify(new SmsNotification);
 
         $riwayat = Riwayatbansos::create([
             'user_id' => Auth()->user()->id,
@@ -145,13 +145,13 @@ class PengajuanController extends Controller
 
         $validator = Validator::make($request->all(), [
             'jenis_bansos_id' => 'required',
-            'surat_ket_tidak_mampu' => 'required',
-            'foto_kk' => 'required',
-            'foto_ktp' => 'required',
-            'foto_diri' => 'required',
+            'surat_ket_tidak_mampu' => 'required|mimes:jpg,png,jpeg,gif,svg,pdf|max:5120',
+            'foto_kk' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:5120',
+            'foto_ktp' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:5120',
+            'foto_diri' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:5120',
 
-            'foto_rmh_tampak_dpn' => 'required',
-            'foto_rmh_tampak_belakang' => 'required',
+            'foto_rmh_tampak_dpn' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:5120',
+            'foto_rmh_tampak_belakang' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:5120',
             'luas_bangunan' => 'required',
             'status_rumah' => 'required',
         ]);
