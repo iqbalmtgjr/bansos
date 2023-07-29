@@ -2,7 +2,6 @@
 {{-- @section('judul', 'Data Pengguna') --}}
 @push('header')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="sweetalert2.min.css">
 @endpush
 
 @section('content')
@@ -39,13 +38,15 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                         Nama Penduduk</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                        Usia</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                         Jenis Bansos</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Status Penerimaan</th>
+                                        Catatan</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Catatan</th>
+                                        Status Penerimaan</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Aksi</th>
@@ -61,10 +62,19 @@
                                             <p class="text-xs font-weight-bold mb-0">{{ $item->penduduk->nik }}</p>
                                         </td>
                                         <td class="align-middle">
-                                            <p class="text-xs font-weight-bold mb-0">{{ $item->penduduk->nama_penduduk }}</p>
+                                            <p class="text-xs font-weight-bold mb-0">{{ $item->penduduk->nama_penduduk }}
+                                            </p>
                                         </td>
                                         <td class="align-middle">
-                                            <p class="text-xs font-weight-bold mb-0">{{ $item->pengajuanbansos->jenisbansos->nama_bansos }}</p>
+                                            <p class="text-xs font-weight-bold mb-0">{{ $item->penduduk->tgl_lahir }}
+                                            </p>
+                                        </td>
+                                        <td class="align-middle">
+                                            <p class="text-xs font-weight-bold mb-0">
+                                                {{ $item->pengajuanbansos->jenisbansos->nama_bansos }}</p>
+                                        </td>
+                                        <td class="align-middle text-center text-sm">
+                                            {{ $item->pengajuanbansos->catatan->catatan }}
                                         </td>
                                         <td class="align-middle text-center">
                                             @if ($item->status_penerimaan == 1)
@@ -73,14 +83,12 @@
                                                 <span class="badge badge-sm bg-gradient-danger">Ditolak</span>
                                             @endif
                                         </td>
-                                        <td class="align-middle text-center text-sm">
-                                            {{ $item->catatan }}
-                                        </td>
                                         <td class="align-middle text-center">
                                             <a href="javascript:;"
                                                 class="font-weight-bold text-xs btn btn-danger btn-sm delete"
-                                                data-id="{{ $item->id }}" data-nama="{{ $item->penduduk->nama_penduduk }}"
-                                                data-toggle="tooltip" data-original-title="Hapus Jenis Bansos">
+                                                data-id="{{ $item->id }}"
+                                                data-nama="{{ $item->penduduk->nama_penduduk }}" data-toggle="tooltip"
+                                                data-original-title="Hapus Jenis Bansos">
                                                 Hapus
                                             </a>
                                         </td>
@@ -105,7 +113,7 @@
             let Id = data.id
             let Nama = data.nama
             // console.log(Id);
-            Swal.fire({?
+            Swal.fire({
                     title: 'Yakin',
                     text: "Mau hapus " + Nama + " dari riwayat bansos?",
                     icon: 'warning',

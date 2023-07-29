@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('nama_penduduk');
             $table->string('jenis_kelamin');
             $table->string('agama');
+            $table->date('tgl_lahir');
             $table->string('rt');
             $table->string('rw');
             $table->string('kel_desa');

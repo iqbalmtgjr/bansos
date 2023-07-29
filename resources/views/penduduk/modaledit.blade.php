@@ -97,6 +97,17 @@
                                     </span>
                                 @enderror
                             </div>
+                            <div class="mb-3">
+                                <label class="form-label">Tanggal Lahir</label>
+                                <input type="date" class="form-control @error('tgl_lahir') is-invalid @enderror"
+                                    name="tgl_lahir" id="tgl_lahir">
+                                @error('tgl_lahir')
+                                    <span class="invalid-feedback" role="alert">
+                                        <div id="emailHelp" class="form-text text-danger">{{ $message }}
+                                        </div>
+                                    </span>
+                                @enderror
+                            </div>
                         </div>
                         <div class="col-md-4">
                             <div class="mb-3">
@@ -191,8 +202,6 @@
                                     </span>
                                 @enderror
                             </div>
-                        </div>
-                        <div class="col-md-4">
                             <div class="mb-3">
                                 <label class="form-label">Pekerjaan</label>
                                 <select class="form-control @error('pekerjaan') is-invalid @enderror"
@@ -220,6 +229,8 @@
                                     </span>
                                 @enderror
                             </div>
+                        </div>
+                        <div class="col-md-4">
                             <div class="mb-3">
                                 <label class="form-label">Kewarganegaraan</label>
                                 <select class="form-control @error('kewarganegaraan') is-invalid @enderror"
@@ -330,6 +341,7 @@
                     $('#nama_penduduk').val(response.nama_penduduk);
                     $('#jenis_kelamin').val(response.jenis_kelamin);
                     $('#agama').val(response.agama);
+                    $('#tgl_lahir').val(response.tgl_lahir);
                     $('#status_kawin').val(response.status_kawin);
                     $('#provinsi').val(response.provinsi);
                     $('#kabupaten').val(response.kabupaten);

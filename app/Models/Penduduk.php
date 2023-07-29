@@ -16,11 +16,16 @@ class Penduduk extends Model
 
     public function routeNotificationForVonage(Notification $notification): string
     {
-        return "+62".$this->no_hp;
+        return "+62" . $this->no_hp;
     }
 
     public function pengajuan()
     {
         return $this->hasOne(Pengajuan::class);
+    }
+
+    public function riwayat()
+    {
+        return $this->hasOne(Riwayatbansos::class);
     }
 }

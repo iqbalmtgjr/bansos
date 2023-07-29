@@ -96,6 +96,17 @@
                                     </span>
                                 @enderror
                             </div>
+                            <div class="mb-3">
+                                <label class="form-label">Tanggal Lahir</label>
+                                <input type="date" class="form-control @error('tgl_lahir') is-invalid @enderror"
+                                    name="tgl_lahir">
+                                @error('tgl_lahir')
+                                    <span class="invalid-feedback" role="alert">
+                                        <div id="emailHelp" class="form-text text-danger">{{ $message }}
+                                        </div>
+                                    </span>
+                                @enderror
+                            </div>
                         </div>
                         <div class="col-md-4">
                             <div class="mb-3">
@@ -190,8 +201,6 @@
                                     </span>
                                 @enderror
                             </div>
-                        </div>
-                        <div class="col-md-4">
                             <div class="mb-3">
                                 <label class="form-label">Pekerjaan</label>
                                 <select class="form-control @error('pekerjaan') is-invalid @enderror"
@@ -219,6 +228,8 @@
                                     </span>
                                 @enderror
                             </div>
+                        </div>
+                        <div class="col-md-4">
                             <div class="mb-3">
                                 <label class="form-label">Kewarganegaraan</label>
                                 <select class="form-control @error('kewarganegaraan') is-invalid @enderror"
@@ -237,18 +248,17 @@
                             <div class="mb-3">
                                 <label class="form-label">No Handphone</label>
                                 <div class="input-group ">
-                                    <span class="input-group-text"
-                                        id="basic-addon1">+62</span>
+                                    <span class="input-group-text" id="basic-addon1">+62</span>
                                     <input name="no_hp" type="number"
                                         class="form-control @error('no_hp') is-invalid @enderror"
                                         placeholder="8xxxxxxxxx" value="{{ old('no_hp') }}" aria-label="no_hp"
                                         aria-describedby="basic-addon1">
-                                @error('no_hp')
-                                    <span class="invalid-feedback" role="alert">
-                                        <div id="emailHelp" class="form-text text-danger">{{ $message }}
-                                        </div>
-                                    </span>
-                                @enderror
+                                    @error('no_hp')
+                                        <span class="invalid-feedback" role="alert">
+                                            <div id="emailHelp" class="form-text text-danger">{{ $message }}
+                                            </div>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="mb-3">

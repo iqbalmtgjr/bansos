@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CatatanController;
 use App\Http\Controllers\JenisbansosController;
 use App\Http\Controllers\LaporanController;
 use Illuminate\Support\Facades\Auth;
@@ -62,6 +63,10 @@ Route::get('/changeAcc', [PengajuanController::class, 'acc']);
 Route::get('/pengajuan/hapus/{id}', [PengajuanController::class, 'destroy'])->name('hapus-pengajuan');
 Route::get('/notif/{id}', [PengajuanController::class, 'notifterima']);
 Route::get('/notifgagal/{id}', [PengajuanController::class, 'notiftolak']);
+Route::get('/getdata/{id}', [PengajuanController::class, 'getdata']);
+
+// catatan
+Route::post('/catatan/tambah', [CatatanController::class, 'storecatatan']);
 
 // Laporan
 Route::get('/laporan', [LaporanController::class, 'index']);

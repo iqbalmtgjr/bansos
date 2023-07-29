@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Catatan;
 use App\Models\Detailrumah;
 use App\Models\Penduduk;
 use App\Models\Pengajuan;
@@ -23,24 +24,25 @@ class PengajuanController extends Controller
         $pengajuan->update([
             'status_sms' => 1
         ]);
-        
+
         $penduduk_id = $pengajuan->penduduk->id;
         // dd($penduduk_id);
-        $riwayatbansos = Riwayatbansos::where('penduduk_id', $penduduk_id)->where('status_penerimaan', 1)->get()->count();
+        $riwayatbansos = Riwayatbansos::where('penduduk_id', $penduduk_id)
+            ->get()
+            ->count();
 
         if ($riwayatbansos > 0) {
             toastr()->warning('Pengajuan ini sudah ada di fitur laporan.', 'Peringatan');
             return redirect('/daftar_pengajuan');
         }
         $data = Penduduk::find($penduduk_id);
-        $data->notify(new SmsNotification);
+        // $data->notify(new SmsNotification);
 
         $riwayat = Riwayatbansos::create([
             'user_id' => Auth()->user()->id,
             'penduduk_id' => $penduduk_id,
             'pengajuan_bansos_id' => $pengajuan->id,
             'status_penerimaan' => 1,
-            'catatan' => 'ini catatan'
         ]);
 
         toastr()->success('Sms notifikasi telah dikirim.', 'Sukses');
@@ -53,24 +55,27 @@ class PengajuanController extends Controller
         $pengajuan->update([
             'status_sms' => 1
         ]);
-        
+
+        $jenisbansos = $pengajuan->jenisbansos->id;
+
         $penduduk_id = $pengajuan->penduduk->id;
         // dd($penduduk_id);
-        $riwayatbansos = Riwayatbansos::where('penduduk_id', $penduduk_id)->where('status_penerimaan', 0)->get()->count();
+        $riwayatbansos = Riwayatbansos::where('penduduk_id', $penduduk_id)
+            ->get()
+            ->count();
 
         if ($riwayatbansos > 0) {
             toastr()->warning('Pengajuan ini sudah ada di fitur laporan.', 'Peringatan');
             return redirect('/daftar_pengajuan');
         }
         $data = Penduduk::find($penduduk_id);
-        $data->notify(new SmsNotificationGagal);
+        // $data->notify(new SmsNotificationGagal);
 
         $riwayat = Riwayatbansos::create([
             'user_id' => Auth()->user()->id,
             'penduduk_id' => $penduduk_id,
             'pengajuan_bansos_id' => $pengajuan->id,
             'status_penerimaan' => 0,
-            'catatan' => 'ini catatan'
         ]);
 
         toastr()->success('Sms notifikasi telah dikirim.', 'Sukses');
@@ -238,6 +243,12 @@ class PengajuanController extends Controller
             }
         }
         $data->save();
+    }
+
+    public function getdata($id)
+    {
+        $data = Pengajuan::find($id);
+        return $data;
     }
 
     public function destroy(string $id)

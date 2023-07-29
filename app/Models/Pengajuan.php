@@ -30,4 +30,9 @@ class Pengajuan extends Model
     {
         return $this->hasOne(Riwayatbansos::class);
     }
+
+    public function catatan()
+    {
+        return $this->hasOne(Catatan::class, 'id');
+    }
 }

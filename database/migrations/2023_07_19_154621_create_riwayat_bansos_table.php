@@ -17,7 +17,6 @@ return new class extends Migration
             $table->foreignId('penduduk_id');
             $table->foreignId('pengajuan_bansos_id');
             $table->integer('status_penerimaan');
-            $table->string('catatan');
             $table->timestamps();
         });
     }

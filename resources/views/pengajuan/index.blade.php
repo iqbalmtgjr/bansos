@@ -7,6 +7,7 @@
 @endpush
 
 @section('content')
+    @include('pengajuan/modalcatatan')
     <div class="row">
         <div class="col-12">
             <div class="card mb-4">
@@ -183,6 +184,15 @@
                                             @endif
                                         </td>
                                         <td class="align-middle text-center text-sm">
+                                            @if (auth()->user()->role != '0')
+                                                <a href="javascript:;"
+                                                    class="font-weight-bold text-md btn btn-primary btn-xs"
+                                                    data-toggle="tooltip" title="Tambah Catatan" data-bs-toggle="modal"
+                                                    data-bs-target="#tambah" onclick="getdata({{ $item->id }})"><i
+                                                        class="fas fa-quote-right"></i>
+                                                    {{-- Tambah Catatan --}}
+                                                </a>
+                                            @endif
                                             <a href="{{ url('pengajuan/lihat/' . $item->id) }}"
                                                 class="font-weight-bold text-md btn btn-info btn-xs" data-toggle="tooltip"
                                                 title="Lihat Data Pengajuan"><i class="fas fa-solid fa-eye"></i>
