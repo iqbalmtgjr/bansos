@@ -41,6 +41,8 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                         Usia</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                        Disabilitas</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                         Jenis Bansos</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -63,9 +65,30 @@
                                             <p class="text-xs font-weight-bold mb-0">{{ $item->penduduk->nama_penduduk }}
                                             </p>
                                         </td>
+                                        <?php
+                                        $lahir = new DateTime($item->penduduk->tgl_lahir);
+                                        $today = new DateTime();
+                                        $umur = $today->diff($lahir);
+                                        ?>
                                         <td class="align-middle">
-                                            <p class="text-xs font-weight-bold mb-0">{{ $item->penduduk->tgl_lahir }}
-                                            </p>
+                                            @if ($umur->y > 59)
+                                                <p class="text-xs text-danger font-weight-bold mb-0">
+                                                    {{ $umur->y . ' Tahun' }}
+                                                </p>
+                                            @else
+                                                <p class="text-xs font-weight-bold mb-0">
+                                                    {{ $umur->y . ' Tahun' }}
+                                                </p>
+                                            @endif
+                                        </td>
+                                        <td class="align-middle">
+                                            @if ($item->penduduk->cacat == 0)
+                                                <p class="text-xs font-weight-bold mb-0">Tidak Cacat
+                                                </p>
+                                            @else
+                                                <p class="text-xs text-danger font-weight-bold mb-0">Cacat
+                                                </p>
+                                            @endif
                                         </td>
                                         <td class="align-middle">
                                             <p class="text-xs font-weight-bold mb-0">
@@ -79,17 +102,17 @@
                                             @endif
                                         </td>
                                         <td class="align-middle text-center">
-                                            <a href="{{ url('/laporan/lihat') . '/' . $item->pengajuan_bansos_id }}"
+                                            {{-- <a href="{{ url('/laporan/lihat') . '/' . $item->pengajuan_bansos_id }}"
                                                 class="font-weight-bold text-xs btn btn-info btn-sm" data-toggle="tooltip"
                                                 data-original-title="Lihat catatan dari role">
                                                 Lihat Catatan
-                                            </a>
-                                            {{-- <a href="javascript:;" onclick="getdata({{ $item->pengajuan_bansos_id }})"
+                                            </a> --}}
+                                            <a href="javascript:;" onclick="getdata({{ $item->pengajuan_bansos_id }})"
                                                 class="font-weight-bold text-xs btn btn-info btn-sm" data-toggle="tooltip"
                                                 data-original-title="Lihat catatan dari role" data-bs-toggle="modal"
                                                 data-bs-target="#lihat">
                                                 Lihat Catatan
-                                            </a> --}}
+                                            </a>
                                             <a href="javascript:;"
                                                 class="font-weight-bold text-xs btn btn-danger btn-sm delete"
                                                 data-id="{{ $item->id }}"

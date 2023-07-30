@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('active', 'active')
+@section('active_sub_laporan', 'active')
 
 @section('breadcrumb')
     <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="{{ url('laporan') }}">Laporan</a>
@@ -19,49 +19,38 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">Catatan dari RT</label>
-                                <textarea class="form-control @error('cacatan_rt') is-invalid @enderror" name="cacatan_rt" id="cacatan_rt"
-                                    cols="30" rows="4">{{ $data }}</textarea>
-                                @error('cacatan_rt')
-                                    <span class="invalid-feedback" role="alert">
-                                        <div id="emailHelp" class="form-text text-danger">{{ $message }}
-                                        </div>
-                                    </span>
-                                @enderror
+                                @if ($data_rt != null)
+                                    <textarea disabled class="form-control" name="cacatan_rt" id="cacatan_rt" cols="30" rows="4">{{ $data_rt->catatan }}</textarea>
+                                @else
+                                    <textarea disabled class="form-control text-danger" name="cacatan_rt" id="cacatan_rt" cols="30" rows="4">Belum Ada Catatan</textarea>
+                                @endif
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Catatan dari RW</label>
-                                <textarea class="form-control @error('cacatan_rw') is-invalid @enderror" name="cacatan_rw" id="cacatan_rw"
-                                    cols="30" rows="4"></textarea>
-                                @error('cacatan_rw')
-                                    <span class="invalid-feedback" role="alert">
-                                        <div id="emailHelp" class="form-text text-danger">{{ $message }}
-                                        </div>
-                                    </span>
-                                @enderror
+                                @if ($data_rw != null)
+                                    <textarea disabled class="form-control" name="cacatan_rw" id="cacatan_rw" cols="30" rows="4">{{ $data_rw->catatan }}</textarea>
+                                @else
+                                    <textarea disabled class="form-control text-danger" name="cacatan_rw" id="cacatan_rw" cols="30" rows="4">Belum Ada Catatan</textarea>
+                                @endif
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">Catatan dari Desa/Kelurahan</label>
-                                <textarea class="form-control @error('cacatan_desa_kel') is-invalid @enderror" name="cacatan_desa_kel"
-                                    id="cacatan_desa_kel" cols="30" rows="4"></textarea>
-                                @error('cacatan_desa_kel')
-                                    <span class="invalid-feedback" role="alert">
-                                        <div id="emailHelp" class="form-text text-danger">{{ $message }}
-                                        </div>
-                                    </span>
-                                @enderror
+                                @if ($data_desa != null)
+                                    <textarea disabled class="form-control" name="cacatan_desa" id="cacatan_desa" cols="30" rows="4">{{ $data_desa->catatan }}</textarea>
+                                @else
+                                    <textarea disabled class="form-control text-danger" name="cacatan_desa" id="cacatan_desa" cols="30" rows="4">Belum Ada Catatan</textarea>
+                                @endif
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Catatan dari Kecamatan</label>
-                                <textarea class="form-control @error('cacatan_kecamatan') is-invalid @enderror" name="cacatan_kecamatan"
-                                    id="cacatan_kecamatan" cols="30" rows="4"></textarea>
-                                @error('cacatan_kecamatan')
-                                    <span class="invalid-feedback" role="alert">
-                                        <div id="emailHelp" class="form-text text-danger">{{ $message }}
-                                        </div>
-                                    </span>
-                                @enderror
+                                @if ($data_kecamatan != null)
+                                    <textarea disabled class="form-control" name="cacatan_kecamatan" id="cacatan_kecamatan" cols="30" rows="4">{{ $data_kecamatan->catatan }}</textarea>
+                                @else
+                                    <textarea disabled class="form-control text-danger" name="cacatan_kecamatan" id="cacatan_kecamatan" cols="30"
+                                        rows="4">Belum Ada Catatan</textarea>
+                                @endif
                             </div>
                         </div>
                     </div>

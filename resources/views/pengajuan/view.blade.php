@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('active', 'active')
+@section('active_sub_daftar_pengajuan', 'active')
 
 @section('breadcrumb')
     <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="{{ url('daftar_pengajuan') }}">Daftar
@@ -85,7 +85,8 @@
                             </div>
                             <div class="mb-3">
                                 <label for="">No HP</label>
-                                <input class="form-control" type="text" disabled value="+62{{ $data->penduduk->no_hp }}">
+                                <input class="form-control" type="text" disabled
+                                    value="+62{{ $data->penduduk->no_hp }}">
                             </div>
                             <div class="mb-3">
                                 <label for="">Penghasilan</label>

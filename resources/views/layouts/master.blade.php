@@ -117,7 +117,7 @@
                     </li>
                 @endif
                 <li class="nav-item">
-                    <a class="nav-link @yield('active') {{ request()->is('daftar_pengajuan') ? 'active' : '' }}"
+                    <a class="nav-link @yield('active_sub_daftar_pengajuan') {{ request()->is('daftar_pengajuan') ? 'active' : '' }}"
                         href="{{ url('/daftar_pengajuan') }}">
                         <div
                             class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -132,7 +132,7 @@
                 </li>
                 @if (auth()->user()->role == 0)
                     <li class="nav-item">
-                        <a class="nav-link @yield('active') {{ request()->is('laporan') ? 'active' : '' }}"
+                        <a class="nav-link @yield('active_sub_laporan') {{ request()->is('laporan') ? 'active' : '' }}"
                             href="{{ url('/laporan') }}">
                             <div
                                 class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">

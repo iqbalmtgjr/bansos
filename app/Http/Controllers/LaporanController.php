@@ -24,15 +24,21 @@ class LaporanController extends Controller
 
     public function getdata($id)
     {
-        $data = Catatan::where('pengajuan_bansos_id', $id)->get();
-        dd($data[0]->user_id);
-        return compact('data');
+        $data_rt = Catatan::where('pengajuan_bansos_id', $id)->where('role', 1)->first();
+        $data_rw = Catatan::where('pengajuan_bansos_id', $id)->where('role', 2)->first();
+        $data_desa = Catatan::where('pengajuan_bansos_id', $id)->where('role', 3)->first();
+        $data_kecamatan = Catatan::where('pengajuan_bansos_id', $id)->where('role', 4)->first();
+
+        return compact('data_rt', 'data_rw', 'data_desa', 'data_kecamatan');
     }
 
     public function view($id)
     {
-        $data = Catatan::where('pengajuan_bansos_id', $id)->get();
-        dd($data);
-        return view('laporan.lihat', compact('data'));
+        $data_rt = Catatan::where('pengajuan_bansos_id', $id)->where('role', 1)->first();
+        $data_rw = Catatan::where('pengajuan_bansos_id', $id)->where('role', 2)->first();
+        $data_desa = Catatan::where('pengajuan_bansos_id', $id)->where('role', 3)->first();
+        $data_kecamatan = Catatan::where('pengajuan_bansos_id', $id)->where('role', 4)->first();
+
+        return view('laporan.lihat', compact('data_rt', 'data_rw', 'data_desa', 'data_kecamatan'));
     }
 }

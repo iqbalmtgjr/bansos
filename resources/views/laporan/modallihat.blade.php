@@ -11,49 +11,21 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label class="form-label">Catatan dari RT</label>
-                            <textarea class="form-control @error('cacatan_rt') is-invalid @enderror" name="cacatan_rt" id="cacatan_rt"
-                                cols="30" rows="4"></textarea>
-                            @error('cacatan_rt')
-                                <span class="invalid-feedback" role="alert">
-                                    <div id="emailHelp" class="form-text text-danger">{{ $message }}
-                                    </div>
-                                </span>
-                            @enderror
+                            <textarea disabled class="form-control" name="cacatan_rt" id="cacatan_rt" cols="30" rows="4"></textarea>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Catatan dari RW</label>
-                            <textarea class="form-control @error('cacatan_rw') is-invalid @enderror" name="cacatan_rw" id="cacatan_rw"
-                                cols="30" rows="4"></textarea>
-                            @error('cacatan_rw')
-                                <span class="invalid-feedback" role="alert">
-                                    <div id="emailHelp" class="form-text text-danger">{{ $message }}
-                                    </div>
-                                </span>
-                            @enderror
+                            <textarea disabled class="form-control" name="cacatan_rw" id="cacatan_rw" cols="30" rows="4"></textarea>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label class="form-label">Catatan dari Desa/Kelurahan</label>
-                            <textarea class="form-control @error('cacatan_desa_kel') is-invalid @enderror" name="cacatan_desa_kel"
-                                id="cacatan_desa_kel" cols="30" rows="4"></textarea>
-                            @error('cacatan_desa_kel')
-                                <span class="invalid-feedback" role="alert">
-                                    <div id="emailHelp" class="form-text text-danger">{{ $message }}
-                                    </div>
-                                </span>
-                            @enderror
+                            <textarea disabled class="form-control" name="cacatan_desa" id="cacatan_desa" cols="30" rows="4"></textarea>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Catatan dari Kecamatan</label>
-                            <textarea class="form-control @error('cacatan_kecamatan') is-invalid @enderror" name="cacatan_kecamatan"
-                                id="cacatan_kecamatan" cols="30" rows="4"></textarea>
-                            @error('cacatan_kecamatan')
-                                <span class="invalid-feedback" role="alert">
-                                    <div id="emailHelp" class="form-text text-danger">{{ $message }}
-                                    </div>
-                                </span>
-                            @enderror
+                            <textarea disabled class="form-control" name="cacatan_kecamatan" id="cacatan_kecamatan" cols="30" rows="4"></textarea>
                         </div>
                     </div>
                 </div>
@@ -78,8 +50,34 @@
                     console.log(response);
 
                     $('#id').val(response.id);
-                    // $('#nama_bansos').val(response.nama_bansos);
-                    // $('#status').val(response.status);
+                    if (response.data_rt != null) {
+                        $('#cacatan_rt').val(response.data_rt['catatan']);
+                        document.querySelector('#cacatan_rt').classList.remove('text-danger');
+                    } else {
+                        $('#cacatan_rt').val('Belum Ada Catatan');
+                        document.querySelector('#cacatan_rt').classList.add('text-danger');
+                    }
+                    if (response.data_rw != null) {
+                        $('#cacatan_rw').val(response.data_rw['catatan']);
+                        document.querySelector('#cacatan_rw').classList.remove('text-danger');
+                    } else {
+                        $('#cacatan_rw').val('Belum Ada Catatan');
+                        document.querySelector('#cacatan_rw').classList.add('text-danger');
+                    }
+                    if (response.data_desa != null) {
+                        $('#cacatan_desa').val(response.data_desa['catatan']);
+                        document.querySelector('#cacatan_desa').classList.remove('text-danger');
+                    } else {
+                        $('#cacatan_desa').val('Belum Ada Catatan');
+                        document.querySelector('#cacatan_desa').classList.add('text-danger');
+                    }
+                    if (response.data_kecamatan != null) {
+                        $('#cacatan_kecamatan').val(response.data_kecamatan['catatan']);
+                        document.querySelector('#cacatan_kecamatan').classList.remove('text-danger');
+                    } else {
+                        $('#cacatan_kecamatan').val('Belum Ada Catatan');
+                        document.querySelector('#cacatan_kecamatan').classList.add('text-danger');
+                    }
                 }
             });
         }
