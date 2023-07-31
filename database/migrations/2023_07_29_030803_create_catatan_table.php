@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('pengajuan_bansos_id');
-            $table->int('role');
+            $table->integer('role');
             $table->string('catatan');
             $table->timestamps();
         });
